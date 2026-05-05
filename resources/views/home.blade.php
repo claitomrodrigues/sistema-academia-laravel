@@ -1,35 +1,29 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-dark text-light">
+@extends('layouts.app')
 
-<div class="container mt-5 text-center">
-    <h1>Sistema Academia</h1>
-    <p class="mb-4">Bem-vindo, {{ auth()->user()->name }}</p>
+@section('title', 'Home')
 
-    <div class="d-grid gap-3 col-6 mx-auto">
+@section('content')
 
-        <a href="{{ route('alunos.index') }}" class="btn btn-danger">Alunos</a>
-        <a href="{{ route('planos.index') }}" class="btn btn-danger">Planos</a>
-        <a href="{{ route('exercicios.index') }}" class="btn btn-danger">Exercícios</a>
-        <a href="{{ route('treinos.index') }}" class="btn btn-danger">Treinos</a>
-        <a href="{{ route('financeiro.index') }}" class="btn btn-danger">Financeiro</a>
+<style>
+    body {
+        background-image: url("{{ asset('img/logo.png') }}");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
+    }
 
-        <a href="{{ route('logout') }}" class="btn btn-secondary"
-           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            Sair
-        </a>
+    .overlay {
+        background-color: rgba(0, 0, 0, 0.7);
+        min-height: 80vh;
+        border-radius: 10px;
+        padding: 30px;
+    }
+</style>
 
-        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-            @csrf
-        </form>
 
     </div>
+
 </div>
 
-</body>
-</html>
+@endsection

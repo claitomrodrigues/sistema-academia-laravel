@@ -20,14 +20,16 @@ class PlanoController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $dados = $request->validate([
             'nome' => 'required|string|max:255',
             'valor' => 'required|numeric',
             'descricao' => 'nullable|string',
             'periodo' => 'required|string|max:100',
         ]);
 
-        Plano::create($request->all());
+        $dados['descricao'] = $dados['descricao'] ?? 'Sem descrição';
+
+        Plano::create($dados);
 
         return redirect()->route('planos.index')->with('success', 'Plano cadastrado com sucesso!');
     }
@@ -40,15 +42,17 @@ class PlanoController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $dados = $request->validate([
             'nome' => 'required|string|max:255',
             'valor' => 'required|numeric',
             'descricao' => 'nullable|string',
             'periodo' => 'required|string|max:100',
         ]);
 
+        $dados['descricao'] = $dados['descricao'] ?? 'Sem descrição';
+
         $plano = Plano::findOrFail($id);
-        $plano->update($request->all());
+        $plano->update($dados);
 
         return redirect()->route('planos.index')->with('success', 'Plano atualizado com sucesso!');
     }

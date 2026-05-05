@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Financeiro</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-dark text-light">
+@extends('layouts.app')
 
-<div class="container mt-5">
+@section('title', 'Financeiro')
+
+@section('content')
+
+<div class="container mt-4">
     <h2>Controle Financeiro</h2>
-
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
 
     <table class="table table-dark table-striped mt-3">
         <thead>
@@ -24,44 +17,59 @@
                 <th>Ações</th>
             </tr>
         </thead>
+
         <tbody>
-            @foreach($pagamentos as $pagamento)
+            @forelse($pagamentos as $pagamento)
                 <tr>
                     <td>{{ $pagamento->matricula->aluno->user->name ?? 'Aluno não encontrado' }}</td>
                     <td>R$ {{ number_format($pagamento->valor, 2, ',', '.') }}</td>
-                    <td>{{ $pagamento->vencimento }}</td>
-                    <td>{{ $pagamento->status }}</td>
+                    <td>{{ \Carbon\Carbon::parse($pagamento->vencimento)->format('d/m/Y') }}</td>
                     <td>
-                        @if($pagamento->status != 'pago')
-                            <form action="{{ route('financeiro.pagar', $pagamento->id) }}" method="POST" class="d-inline">
+                        @if($pagamento->status == 'pago')
+                            <span class="badge bg-success">Pago</span>
+                        @else
+                            <span class="badge bg-warning text-dark">Pendente</span>
+                        @endif
+                    </td>
+
+                    <td>
+                        @if(auth()->user()->role === 'instrutor')
+                            @if($pagamento->status != 'pago')
+                                <form action="{{ route('financeiro.pagar', $pagamento->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button class="btn btn-success btn-sm">Marcar como pago</button>
+                                </form>
+                            @endif
+
+                            <form action="{{ route('financeiro.transacao') }}" method="POST" class="d-inline">
                                 @csrf
-                                <button class="btn btn-success btn-sm">Marcar como pago</button>
+                                <input type="hidden" name="pagamento_id" value="{{ $pagamento->id }}">
+                                <input type="hidden" name="metodo" value="pix">
+                                <button class="btn btn-danger btn-sm">Gerar Pix</button>
+                            </form>
+
+                            <form action="{{ route('financeiro.transacao') }}" method="POST" class="d-inline">
+                                @csrf
+                                <input type="hidden" name="pagamento_id" value="{{ $pagamento->id }}">
+                                <input type="hidden" name="metodo" value="boleto">
+                                <button class="btn btn-warning btn-sm">Gerar Boleto</button>
                             </form>
                         @else
-                            <span class="badge bg-success">Pago</span>
+                            <span class="text-muted">Somente visualização</span>
                         @endif
-
-                        <form action="{{ route('financeiro.transacao') }}" method="POST" class="d-inline">
-                            @csrf
-                            <input type="hidden" name="pagamento_id" value="{{ $pagamento->id }}">
-                            <input type="hidden" name="metodo" value="pix">
-                            <button class="btn btn-danger btn-sm">Gerar Pix</button>
-                        </form>
-
-                        <form action="{{ route('financeiro.transacao') }}" method="POST" class="d-inline">
-                            @csrf
-                            <input type="hidden" name="pagamento_id" value="{{ $pagamento->id }}">
-                            <input type="hidden" name="metodo" value="boleto">
-                            <button class="btn btn-warning btn-sm">Gerar Boleto</button>
-                        </form>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center">
+                        Nenhum pagamento encontrado.
+                    </td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 
     <a href="{{ route('home') }}" class="btn btn-secondary">Voltar</a>
 </div>
 
-</body>
-</html>
+@endsection

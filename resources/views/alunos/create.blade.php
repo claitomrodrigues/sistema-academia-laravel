@@ -1,20 +1,19 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastrar Aluno</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-dark text-light">
+@extends('layouts.app')
 
-<div class="container mt-5">
+@section('title', 'Cadastrar Aluno')
+
+@section('content')
+
+<div class="container mt-4">
     <h2>Cadastrar Aluno</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">
-            @foreach ($errors->all() as $erro)
-                <p>{{ $erro }}</p>
-            @endforeach
+            <ul class="mb-0">
+                @foreach ($errors->all() as $erro)
+                    <li>{{ $erro }}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
 
@@ -23,39 +22,45 @@
 
         <div class="mb-3">
             <label>Nome</label>
-            <input type="text" name="nome" class="form-control" required>
+            <input type="text" name="nome" value="{{ old('nome') }}" class="form-control @error('nome') is-invalid @enderror" required>
+            @error('nome') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
 
         <div class="mb-3">
             <label>Email</label>
-            <input type="email" name="email" class="form-control" required>
+            <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" required>
+            @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
 
         <div class="mb-3">
             <label>CPF</label>
-            <input type="text" name="cpf" class="form-control" required>
+            <input type="text" name="cpf" value="{{ old('cpf') }}" class="form-control @error('cpf') is-invalid @enderror" required>
+            @error('cpf') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
 
         <div class="mb-3">
             <label>Data de nascimento</label>
-            <input type="date" name="nascimento" class="form-control" required>
+            <input type="date" name="nascimento" value="{{ old('nascimento') }}" class="form-control @error('nascimento') is-invalid @enderror" required>
+            @error('nascimento') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
 
         <div class="mb-3">
             <label>Objetivo</label>
-            <input type="text" name="objetivo" class="form-control">
+            <input type="text" name="objetivo" value="{{ old('objetivo') }}" class="form-control @error('objetivo') is-invalid @enderror">
+            @error('objetivo') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
 
         <div class="mb-3">
             <label>Plano</label>
-            <select name="plano_id" class="form-control" required>
+            <select name="plano_id" class="form-control @error('plano_id') is-invalid @enderror" required>
                 <option value="">Selecione um plano</option>
                 @foreach($planos as $plano)
-                    <option value="{{ $plano->id }}">
+                    <option value="{{ $plano->id }}" {{ old('plano_id') == $plano->id ? 'selected' : '' }}>
                         {{ $plano->nome }} - R$ {{ number_format($plano->valor, 2, ',', '.') }}
                     </option>
                 @endforeach
             </select>
+            @error('plano_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
 
         <button class="btn btn-danger">Salvar</button>
@@ -63,5 +68,4 @@
     </form>
 </div>
 
-</body>
-</html>
+@endsection

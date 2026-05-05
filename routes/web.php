@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AlunoController;
@@ -22,15 +21,16 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // register
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
+//Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+//Route::post('/register', [AuthController::class, 'register']);
 
 // home
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])
+    ->middleware('auth')
+    ->name('home');
 
 // instrutor
-Route::middleware(['auth'])->group(function () {
-    
+Route::middleware(['auth', 'role:instrutor'])->group(function () {
     Route::resource('alunos', AlunoController::class);
     Route::resource('planos', PlanoController::class);
     Route::resource('exercicios', ExercicioController::class);
@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // aluno
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'role:aluno'])->group(function () {
     Route::get('/meu-treino/{id}', [TreinoController::class, 'show'])->name('meu.treino');
     Route::get('/minhas-faturas', [FinanceiroController::class, 'faturas'])->name('minhas.faturas');
 });

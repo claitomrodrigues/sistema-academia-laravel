@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Ficha de Treino</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-dark text-light">
+@extends('layouts.app')
 
-<div class="container mt-5">
+@section('title', 'Ficha de Treino')
+
+@section('content')
+
+<div class="container mt-4">
     <h2>Ficha de Treino</h2>
 
     <div class="card bg-secondary text-light mb-4">
@@ -29,7 +26,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($treino->itens as $item)
+            @forelse($treino->itens as $item)
                 <tr>
                     <td>{{ $item->exercicio->nome ?? 'Exercício removido' }}</td>
                     <td>{{ $item->exercicio->grupo_muscular ?? '-' }}</td>
@@ -37,12 +34,21 @@
                     <td>{{ $item->reps }}</td>
                     <td>{{ $item->carga }}</td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center">
+                        Nenhum exercício cadastrado neste treino.
+                    </td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 
-    <a href="{{ route('treinos.index') }}" class="btn btn-secondary">Voltar</a>
+    @if(auth()->user()->role === 'instrutor')
+        <a href="{{ route('treinos.index') }}" class="btn btn-secondary">Voltar</a>
+    @else
+        <a href="{{ route('home') }}" class="btn btn-secondary">Voltar</a>
+    @endif
 </div>
 
-</body>
-</html>
+@endsection

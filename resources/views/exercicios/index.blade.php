@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Exercícios</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-dark text-light">
+@extends('layouts.app')
 
-<div class="container mt-5">
+@section('title', 'Exercícios')
+
+@section('content')
+
+<div class="container mt-4">
     <h2>Exercícios</h2>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+    @if(auth()->user()->role === 'instrutor')
+        <a href="{{ route('exercicios.create') }}" class="btn btn-danger mb-3">
+            Novo Exercício
+        </a>
     @endif
-
-    <a href="{{ route('exercicios.create') }}" class="btn btn-danger mb-3">Novo Exercício</a>
 
     <table class="table table-dark table-striped">
         <thead>
@@ -24,27 +21,39 @@
                 <th>Ações</th>
             </tr>
         </thead>
+
         <tbody>
-            @foreach($exercicios as $exercicio)
+            @forelse($exercicios as $exercicio)
                 <tr>
                     <td>{{ $exercicio->nome }}</td>
                     <td>{{ $exercicio->grupo_muscular }}</td>
                     <td>
-                        <a href="{{ route('exercicios.edit', $exercicio->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                        @if(auth()->user()->role === 'instrutor')
+                            <a href="{{ route('exercicios.edit', $exercicio->id) }}" class="btn btn-warning btn-sm">
+                                Editar
+                            </a>
 
-                        <form action="{{ route('exercicios.destroy', $exercicio->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger btn-sm" onclick="return confirm('Excluir?')">
-                                Excluir
-                            </button>
-                        </form>
+                            <form action="{{ route('exercicios.destroy', $exercicio->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm" onclick="return confirm('Excluir?')">
+                                    Excluir
+                                </button>
+                            </form>
+                        @else
+                            <span class="text-muted">Somente visualização</span>
+                        @endif
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="3" class="text-center">
+                        Nenhum exercício cadastrado.
+                    </td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 </div>
 
-</body>
-</html>
+@endsection

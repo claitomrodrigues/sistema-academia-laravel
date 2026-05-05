@@ -1,14 +1,22 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Plano</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-dark text-light">
+@extends('layouts.app')
 
-<div class="container mt-5">
+@section('title', 'Editar Plano')
+
+@section('content')
+
+<div class="container mt-4">
     <h2>Editar Plano</h2>
+
+    {{-- ERROS --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $erro)
+                    <li>{{ $erro }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <form action="{{ route('planos.update', $plano->id) }}" method="POST">
         @csrf
@@ -16,22 +24,56 @@
 
         <div class="mb-3">
             <label>Nome</label>
-            <input type="text" name="nome" class="form-control" value="{{ $plano->nome }}" required>
+            <input 
+                type="text" 
+                name="nome" 
+                value="{{ old('nome', $plano->nome) }}"
+                class="form-control @error('nome') is-invalid @enderror"
+                required
+            >
+            @error('nome')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label>Valor</label>
-            <input type="number" step="0.01" name="valor" class="form-control" value="{{ $plano->valor }}" required>
+            <input 
+                type="number" 
+                step="0.01" 
+                name="valor" 
+                value="{{ old('valor', $plano->valor) }}"
+                class="form-control @error('valor') is-invalid @enderror"
+                required
+            >
+            @error('valor')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label>Período</label>
-            <input type="text" name="periodo" class="form-control" value="{{ $plano->periodo }}" required>
+            <input 
+                type="text" 
+                name="periodo" 
+                value="{{ old('periodo', $plano->periodo) }}"
+                class="form-control @error('periodo') is-invalid @enderror"
+                required
+            >
+            @error('periodo')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label>Descrição</label>
-            <textarea name="descricao" class="form-control">{{ $plano->descricao }}</textarea>
+            <textarea 
+                name="descricao" 
+                class="form-control @error('descricao') is-invalid @enderror"
+            >{{ old('descricao', $plano->descricao) }}</textarea>
+            @error('descricao')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
         <button class="btn btn-danger">Atualizar</button>
@@ -39,5 +81,4 @@
     </form>
 </div>
 
-</body>
-</html>
+@endsection

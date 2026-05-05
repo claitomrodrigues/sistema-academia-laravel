@@ -1,14 +1,21 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Exercício</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-dark text-light">
+@extends('layouts.app')
 
-<div class="container mt-5">
+@section('title', 'Editar Exercício')
+
+@section('content')
+
+<div class="container mt-4">
     <h2>Editar Exercício</h2>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $erro)
+                    <li>{{ $erro }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <form action="{{ route('exercicios.update', $exercicio->id) }}" method="POST">
         @csrf
@@ -16,12 +23,30 @@
 
         <div class="mb-3">
             <label>Nome</label>
-            <input type="text" name="nome" class="form-control" value="{{ $exercicio->nome }}" required>
+            <input 
+                type="text" 
+                name="nome" 
+                value="{{ old('nome', $exercicio->nome) }}"
+                class="form-control @error('nome') is-invalid @enderror" 
+                required
+            >
+            @error('nome')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label>Grupo Muscular</label>
-            <input type="text" name="grupo_muscular" class="form-control" value="{{ $exercicio->grupo_muscular }}" required>
+            <input 
+                type="text" 
+                name="grupo_muscular" 
+                value="{{ old('grupo_muscular', $exercicio->grupo_muscular) }}"
+                class="form-control @error('grupo_muscular') is-invalid @enderror" 
+                required
+            >
+            @error('grupo_muscular')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
         <button class="btn btn-danger">Atualizar</button>
@@ -29,5 +54,4 @@
     </form>
 </div>
 
-</body>
-</html>
+@endsection

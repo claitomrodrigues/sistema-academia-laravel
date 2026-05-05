@@ -1,19 +1,16 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Novo Treino</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-dark text-light">
+@extends('layouts.app')
 
-<div class="container mt-5">
+@section('title', 'Novo Treino')
+
+@section('content')
+
+<div class="container mt-4">
     <h2>Montar Treino</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">
             @foreach ($errors->all() as $erro)
-                <p>{{ $erro }}</p>
+                <div>{{ $erro }}</div>
             @endforeach
         </div>
     @endif
@@ -26,7 +23,7 @@
             <select name="aluno_id" class="form-control" required>
                 <option value="">Selecione o aluno</option>
                 @foreach($alunos as $aluno)
-                    <option value="{{ $aluno->id }}">
+                    <option value="{{ $aluno->id }}" {{ old('aluno_id') == $aluno->id ? 'selected' : '' }}>
                         {{ $aluno->user->name ?? $aluno->nome }}
                     </option>
                 @endforeach
@@ -35,75 +32,72 @@
 
         <div class="mb-3">
             <label>Tipo do treino</label>
-            <input type="text" name="tipo" class="form-control" placeholder="Ex: A, B, C, Superior, Inferior" required>
+            <input 
+                type="text" 
+                name="tipo" 
+                value="{{ old('tipo') }}"
+                class="form-control" 
+                placeholder="Ex: A, B, C, Superior, Inferior" 
+                required
+            >
         </div>
 
         <hr>
 
         <h4>Exercícios</h4>
 
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <label>Exercício</label>
-                <select name="itens[0][exercicio_id]" class="form-control" required>
-                    <option value="">Selecione</option>
-                    @foreach($exercicios as $exercicio)
-                        <option value="{{ $exercicio->id }}">
-                            {{ $exercicio->nome }} - {{ $exercicio->grupo_muscular }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
+        @for($i = 0; $i < 2; $i++)
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label>Exercício</label>
+                    <select name="itens[{{ $i }}][exercicio_id]" class="form-control" {{ $i == 0 ? 'required' : '' }}>
+                        <option value="">Selecione</option>
+                        @foreach($exercicios as $exercicio)
+                            <option value="{{ $exercicio->id }}" {{ old("itens.$i.exercicio_id") == $exercicio->id ? 'selected' : '' }}>
+                                {{ $exercicio->nome }} - {{ $exercicio->grupo_muscular }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
-            <div class="col-md-2">
-                <label>Séries</label>
-                <input type="number" name="itens[0][series]" class="form-control" required>
-            </div>
+                <div class="col-md-2">
+                    <label>Séries</label>
+                    <input 
+                        type="number" 
+                        name="itens[{{ $i }}][series]" 
+                        value="{{ old("itens.$i.series") }}"
+                        class="form-control" 
+                        {{ $i == 0 ? 'required' : '' }}
+                    >
+                </div>
 
-            <div class="col-md-2">
-                <label>Repetições</label>
-                <input type="number" name="itens[0][reps]" class="form-control" required>
-            </div>
+                <div class="col-md-2">
+                    <label>Repetições</label>
+                    <input 
+                        type="number" 
+                        name="itens[{{ $i }}][reps]" 
+                        value="{{ old("itens.$i.reps") }}"
+                        class="form-control" 
+                        {{ $i == 0 ? 'required' : '' }}
+                    >
+                </div>
 
-            <div class="col-md-2">
-                <label>Carga</label>
-                <input type="text" name="itens[0][carga]" class="form-control" placeholder="Ex: 20kg">
+                <div class="col-md-2">
+                    <label>Carga</label>
+                    <input 
+                        type="text" 
+                        name="itens[{{ $i }}][carga]" 
+                        value="{{ old("itens.$i.carga") }}"
+                        class="form-control" 
+                        placeholder="Ex: 20kg"
+                    >
+                </div>
             </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <label>Exercício</label>
-                <select name="itens[1][exercicio_id]" class="form-control">
-                    <option value="">Selecione</option>
-                    @foreach($exercicios as $exercicio)
-                        <option value="{{ $exercicio->id }}">
-                            {{ $exercicio->nome }} - {{ $exercicio->grupo_muscular }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="col-md-2">
-                <label>Séries</label>
-                <input type="number" name="itens[1][series]" class="form-control">
-            </div>
-
-            <div class="col-md-2">
-                <label>Repetições</label>
-                <input type="number" name="itens[1][reps]" class="form-control">
-            </div>
-
-            <div class="col-md-2">
-                <label>Carga</label>
-                <input type="text" name="itens[1][carga]" class="form-control">
-            </div>
-        </div>
+        @endfor
 
         <button class="btn btn-danger">Salvar Treino</button>
         <a href="{{ route('treinos.index') }}" class="btn btn-secondary">Voltar</a>
     </form>
 </div>
 
-</body>
-</html>
+@endsection

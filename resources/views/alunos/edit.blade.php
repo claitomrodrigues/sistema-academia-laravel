@@ -1,14 +1,21 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Aluno</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-dark text-light">
+@extends('layouts.app')
 
-<div class="container mt-5">
+@section('title', 'Editar Aluno')
+
+@section('content')
+
+<div class="container mt-4">
     <h2>Editar Aluno</h2>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $erro)
+                    <li>{{ $erro }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <form action="{{ route('alunos.update', $aluno->id) }}" method="POST">
         @csrf
@@ -16,22 +23,57 @@
 
         <div class="mb-3">
             <label>Nome</label>
-            <input type="text" name="nome" class="form-control" value="{{ $aluno->user->name ?? $aluno->nome }}" required>
+            <input 
+                type="text" 
+                name="nome" 
+                value="{{ old('nome', $aluno->user->name ?? $aluno->nome) }}"
+                class="form-control @error('nome') is-invalid @enderror" 
+                required
+            >
+            @error('nome')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label>CPF</label>
-            <input type="text" name="cpf" class="form-control" value="{{ $aluno->cpf }}" required>
+            <input 
+                type="text" 
+                name="cpf" 
+                value="{{ old('cpf', $aluno->cpf) }}"
+                class="form-control @error('cpf') is-invalid @enderror" 
+                required
+            >
+            @error('cpf')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label>Data de nascimento</label>
-            <input type="date" name="nascimento" class="form-control" value="{{ $aluno->nascimento }}" required>
+            <input 
+                type="date" 
+                name="nascimento" 
+                value="{{ old('nascimento', $aluno->nascimento) }}"
+                class="form-control @error('nascimento') is-invalid @enderror" 
+                required
+            >
+            @error('nascimento')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label>Objetivo</label>
-            <input type="text" name="objetivo" class="form-control" value="{{ $aluno->objetivo }}">
+            <input 
+                type="text" 
+                name="objetivo" 
+                value="{{ old('objetivo', $aluno->objetivo) }}"
+                class="form-control @error('objetivo') is-invalid @enderror"
+            >
+            @error('objetivo')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
         <button class="btn btn-danger">Atualizar</button>
@@ -39,5 +81,4 @@
     </form>
 </div>
 
-</body>
-</html>
+@endsection

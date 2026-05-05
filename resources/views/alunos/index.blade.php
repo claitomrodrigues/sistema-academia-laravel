@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Alunos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-dark text-light">
+@extends('layouts.app')
 
-<div class="container mt-5">
+@section('title', 'Alunos')
+
+@section('content')
+
+<div class="container mt-4">
     <h2>Alunos</h2>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+    @if(auth()->user()->role === 'instrutor')
+        <a href="{{ route('alunos.create') }}" class="btn btn-danger mb-3">
+            Novo Aluno
+        </a>
     @endif
-
-    <a href="{{ route('alunos.create') }}" class="btn btn-danger mb-3">Novo Aluno</a>
 
     <table class="table table-dark table-striped">
         <thead>
@@ -26,29 +23,41 @@
                 <th>Ações</th>
             </tr>
         </thead>
+
         <tbody>
-            @foreach($alunos as $aluno)
+            @forelse($alunos as $aluno)
                 <tr>
                     <td>{{ $aluno->user->name ?? $aluno->nome }}</td>
                     <td>{{ $aluno->cpf }}</td>
-                    <td>{{ $aluno->nascimento }}</td>
+                    <td>{{ \Carbon\Carbon::parse($aluno->nascimento)->format('d/m/Y') }}</td>
                     <td>{{ $aluno->objetivo }}</td>
                     <td>
-                        <a href="{{ route('alunos.edit', $aluno->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                        @if(auth()->user()->role === 'instrutor')
+                            <a href="{{ route('alunos.edit', $aluno->id) }}" class="btn btn-warning btn-sm">
+                                Editar
+                            </a>
 
-                        <form action="{{ route('alunos.destroy', $aluno->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger btn-sm" onclick="return confirm('Deseja excluir?')">
-                                Excluir
-                            </button>
-                        </form>
+                            <form action="{{ route('alunos.destroy', $aluno->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm" onclick="return confirm('Deseja excluir?')">
+                                    Excluir
+                                </button>
+                            </form>
+                        @else
+                            <span class="text-muted">Somente visualização</span>
+                        @endif
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center">
+                        Nenhum aluno cadastrado.
+                    </td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 </div>
 
-</body>
-</html>
+@endsection

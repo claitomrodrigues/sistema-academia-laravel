@@ -36,10 +36,6 @@
 
     <hr>
 
-    <p class="text-center mb-0">
-        Não tem conta?
-        <a href="{{ route('register') }}" class="text-light fw-bold">Criar conta</a>
-    </p>
 </div>
 
 </body>
