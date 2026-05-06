@@ -33,6 +33,9 @@
                         <a href="{{ route('treinos.show', $treino->id) }}" class="btn btn-info btn-sm">
                             Ver
                         </a>
+                        <a href="{{ route('treinos.pdf', $treino->id) }}" class="btn btn-danger btn-sm">
+                            PDF
+                        </a>
 
                         {{-- EXCLUIR SÓ INSTRUTOR --}}
                         @if(auth()->user()->role === 'instrutor')

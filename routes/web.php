@@ -41,8 +41,13 @@ Route::middleware(['auth', 'role:instrutor'])->group(function () {
     Route::post('/financeiro/transacao', [FinanceiroController::class, 'gerarTransacao'])->name('financeiro.transacao');
 });
 
-// aluno
+//aluno
 Route::middleware(['auth', 'role:aluno'])->group(function () {
     Route::get('/meu-treino/{id}', [TreinoController::class, 'show'])->name('meu.treino');
     Route::get('/minhas-faturas', [FinanceiroController::class, 'faturas'])->name('minhas.faturas');
 });
+
+//pdf treino
+Route::get('/treinos/{id}/pdf', [TreinoController::class, 'pdf'])
+    ->middleware(['auth'])
+    ->name('treinos.pdf');

@@ -49,6 +49,11 @@
     @else
         <a href="{{ route('home') }}" class="btn btn-secondary">Voltar</a>
     @endif
+
+<a href="{{ route('treinos.pdf', $treino->id) }}" class="btn btn-danger">
+    Baixar PDF
+</a>
+
 </div>
 
 @endsection
