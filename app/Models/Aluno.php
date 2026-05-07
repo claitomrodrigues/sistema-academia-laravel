@@ -12,6 +12,7 @@ class Aluno extends Model
         'cpf',
         'nascimento',
         'objetivo',
+        'asaas_customer_id',
     ];
 
     public function user()

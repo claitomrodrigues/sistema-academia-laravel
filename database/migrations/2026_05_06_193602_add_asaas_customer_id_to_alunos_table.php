@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-    Schema::create('transacoes', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('pagamento_id')->constrained();
-    $table->string('metodo');
-    $table->text('codigo_barras')->nullable();
-    $table->text('qr_code_pix')->nullable();
-    $table->timestamps();
+        Schema::table('alunos', function (Blueprint $table) {
+             $table->string('asaas_customer_id')->nullable();
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transacoes');
+        Schema::table('alunos', function (Blueprint $table) {
+            $table->dropColumn('asaas_customer_id');
+        });
     }
 };

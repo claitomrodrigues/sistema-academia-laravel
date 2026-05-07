@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Novo Exercício')
+@section('title', 'Nova Cobrança')
 
 @section('content')
 
@@ -30,7 +30,7 @@
         box-shadow: 0 20px 45px rgba(0,0,0,.25);
     }
 
-    .exercise-preview{
+    .charge-preview{
         background: linear-gradient(
             135deg,
             rgba(239,68,68,.12),
@@ -98,7 +98,8 @@
         margin-bottom: 8px;
     }
 
-    .form-control{
+    .form-control,
+    .form-select{
         background: #020617;
         border: 1px solid #1f2937;
         color: #fff;
@@ -106,7 +107,8 @@
         padding: 13px 15px;
     }
 
-    .form-control:focus{
+    .form-control:focus,
+    .form-select:focus{
         background: #020617;
         color: #fff;
         border-color: #ef4444;
@@ -115,6 +117,11 @@
 
     .form-control::placeholder{
         color: #6b7280;
+    }
+
+    .form-select option{
+        background: #111827;
+        color: #fff;
     }
 
     .invalid-feedback{
@@ -137,11 +144,49 @@
         margin-top: 6px;
     }
 
+    .payment-methods{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+        margin-top: 8px;
+    }
+
+    .payment-card{
+        background: #020617;
+        border: 1px solid rgba(255,255,255,.06);
+        border-radius: 18px;
+        padding: 20px;
+        transition: .2s;
+    }
+
+    .payment-card:hover{
+        transform: translateY(-2px);
+        border-color: rgba(239,68,68,.25);
+    }
+
+    .payment-card i{
+        font-size: 26px;
+        color: #ef4444;
+        margin-bottom: 14px;
+    }
+
+    .payment-card h5{
+        color: #fff;
+        font-weight: 800;
+        margin-bottom: 6px;
+    }
+
+    .payment-card p{
+        color: #6b7280;
+        font-size: 14px;
+        margin: 0;
+    }
+
     .actions{
         display: flex;
         gap: 12px;
         flex-wrap: wrap;
-        margin-top: 26px;
+        margin-top: 30px;
     }
 
     .btn-fit-primary{
@@ -186,11 +231,11 @@
 <div class="fit-page-header">
 
     <h1 class="fit-page-title">
-        Novo Exercício
+        Nova Cobrança
     </h1>
 
     <p class="fit-page-subtitle">
-        Cadastre exercícios para utilização nas fichas de treino dos alunos.
+        Gere mensalidades e cobranças para os alunos da academia.
     </p>
 
 </div>
@@ -215,35 +260,35 @@
 
 <div class="fit-card">
 
-    <div class="exercise-preview">
+    <div class="charge-preview">
 
         <div class="preview-label">
-            Novo exercício
+            Financeiro FitCloud
         </div>
 
         <div class="preview-title">
-            Cadastro FitCloud
+            Nova cobrança
         </div>
 
         <div class="preview-badge">
 
-            <i class="bi bi-lightning-charge-fill"></i>
+            <i class="bi bi-cash-stack"></i>
 
-            Banco de exercícios da academia
+            PIX e boleto integrados
 
         </div>
 
     </div>
 
-    <form action="{{ route('exercicios.store') }}" method="POST">
+    <form action="{{ route('cobrancas.store') }}" method="POST">
 
         @csrf
 
         <div class="section-title">
 
-            <i class="bi bi-plus-circle-fill"></i>
+            <i class="bi bi-person-fill"></i>
 
-            Informações do exercício
+            Dados da cobrança
 
         </div>
 
@@ -251,57 +296,127 @@
 
             <div class="col-md-6">
 
-                <label for="nome">
-                    Nome do exercício
+                <label>
+                    Aluno
                 </label>
 
-                <input
-                    type="text"
-                    id="nome"
-                    name="nome"
-                    value="{{ old('nome') }}"
-                    class="form-control @error('nome') is-invalid @enderror"
-                    placeholder="Ex: Supino reto"
+                <select
+                    name="matricula_id"
+                    class="form-select @error('matricula_id') is-invalid @enderror"
                     required
                 >
 
-                <div class="form-hint">
-                    Informe o nome principal do exercício.
-                </div>
+                    <option value="">
+                        Selecione um aluno
+                    </option>
 
-                @error('nome')
+                    @foreach($matriculas as $matricula)
+
+                        <option value="{{ $matricula->id }}">
+
+                            {{ $matricula->aluno->user->name }}
+
+                        </option>
+
+                    @endforeach
+
+                </select>
+
+                @error('matricula_id')
+
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
+
                 @enderror
 
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-3">
 
-                <label for="grupo_muscular">
-                    Grupo muscular
+                <label>
+                    Valor
                 </label>
 
                 <input
-                    type="text"
-                    id="grupo_muscular"
-                    name="grupo_muscular"
-                    value="{{ old('grupo_muscular') }}"
-                    class="form-control @error('grupo_muscular') is-invalid @enderror"
-                    placeholder="Ex: Peito, Costas, Bíceps..."
+                    type="number"
+                    step="0.01"
+                    name="valor"
+                    class="form-control @error('valor') is-invalid @enderror"
+                    placeholder="Ex: 129.90"
                     required
                 >
 
-                <div class="form-hint">
-                    Defina o grupo muscular trabalhado.
-                </div>
+                @error('valor')
 
-                @error('grupo_muscular')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
+
                 @enderror
+
+            </div>
+
+            <div class="col-md-3">
+
+                <label>
+                    Vencimento
+                </label>
+
+                <input
+                    type="date"
+                    name="vencimento"
+                    class="form-control @error('vencimento') is-invalid @enderror"
+                    required
+                >
+
+                @error('vencimento')
+
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+
+                @enderror
+
+            </div>
+
+        </div>
+
+        <div class="section-title mt-5">
+
+            <i class="bi bi-credit-card-fill"></i>
+
+            Métodos de pagamento disponíveis
+
+        </div>
+
+        <div class="payment-methods">
+
+            <div class="payment-card">
+
+                <i class="bi bi-qr-code"></i>
+
+                <h5>
+                    PIX Instantâneo
+                </h5>
+
+                <p>
+                    Gere QR Code PIX automático com integração Asaas.
+                </p>
+
+            </div>
+
+            <div class="payment-card">
+
+                <i class="bi bi-upc-scan"></i>
+
+                <h5>
+                    Boleto Bancário
+                </h5>
+
+                <p>
+                    Emissão automática de boletos via API.
+                </p>
 
             </div>
 
@@ -313,11 +428,11 @@
 
                 <i class="bi bi-check-circle-fill"></i>
 
-                Salvar Exercício
+                Criar Cobrança
 
             </button>
 
-            <a href="{{ route('exercicios.index') }}" class="btn-fit-secondary">
+            <a href="{{ route('financeiro.index') }}" class="btn-fit-secondary">
 
                 <i class="bi bi-arrow-left"></i>
 
