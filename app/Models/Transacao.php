@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Transacoes extends Model
+class Transacao extends Model
 {
+    protected $table = 'transacoes';
+
     protected $fillable = [
         'pagamento_id',
         'asaas_payment_id',

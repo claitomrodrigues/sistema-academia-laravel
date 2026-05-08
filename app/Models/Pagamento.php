@@ -19,7 +19,7 @@ class Pagamento extends Model
     }
 
     public function transacao()
-    {
-        return $this->hasOne(Transacao::class);
-    }
+{
+    return $this->hasOne(Transacao::class, 'pagamento_id');
+}
 }

@@ -27,49 +27,64 @@ class TreinoController extends Controller
         return view('treinos.create', compact('alunos', 'exercicios'));
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'aluno_id' => 'required|exists:alunos,id',
-            'tipo' => 'required|string|max:255',
-            'itens' => 'required|array',
-            'itens.*.exercicio_id' => 'nullable|exists:exercicios,id',
-            'itens.*.series' => 'nullable|integer',
-            'itens.*.reps' => 'nullable|integer',
-            'itens.*.carga' => 'nullable|string|max:50',
-        ]);
+   public function store(Request $request)
+{
+    $request->validate([
+        'aluno_id' => 'required|exists:alunos,id',
+        'tipo' => 'required|string|max:255',
+        'dias_semana' => 'required|integer|min:2|max:7',
+        'itens' => 'required|array',
+    ]);
 
-        $treino = Treino::create([
-            'aluno_id' => $request->aluno_id,
-            'tipo' => $request->tipo,
-            'status' => 'ativo'
-        ]);
+    $itensSelecionados = collect($request->itens)
+        ->filter(function ($item) {
+            return isset($item['exercicio_id']);
+        })
+        ->values();
 
-        foreach ($request->itens as $item) {
-            if (!empty($item['exercicio_id'])) {
-                ItemTreino::create([
-                    'treino_id' => $treino->id,
-                    'exercicio_id' => $item['exercicio_id'],
-                    'series' => $item['series'] ?? 0,
-                    'reps' => $item['reps'] ?? 0,
-                    'carga' => $item['carga'] ?? 'Sem carga',
-                ]);
-            }
-        }
-
-        return redirect()->route('treinos.index')->with('success', 'Treino criado!');
+    if ($itensSelecionados->isEmpty()) {
+        return back()
+            ->withErrors(['itens' => 'Selecione pelo menos um exercício para o treino.'])
+            ->withInput();
     }
+
+   $diasSemana = (int) $request->dias_semana;
+
+$valorMensal = 100 + (($diasSemana - 2) * 10);
+
+$treino = Treino::create([
+    'aluno_id' => $request->aluno_id,
+    'tipo' => $request->tipo,
+    'dias_semana' => $diasSemana,
+    'valor_mensal' => $valorMensal,
+    'status' => 'ativo',
+]);
+
+    foreach ($itensSelecionados as $item) {
+        ItemTreino::create([
+            'treino_id' => $treino->id,
+            'exercicio_id' => $item['exercicio_id'],
+            'series' => $item['series'] ?? null,
+            'repeticoes' => $item['reps'] ?? null,
+            'carga' => $item['carga'] ?? null,
+        ]);
+    }
+
+    return redirect()
+        ->route('treinos.index')
+        ->with('success', 'Treino criado com sucesso!');
+}
 
    public function show($id)
 {
-    $treino = Treino::with(['aluno.user', 'itens.exercicio'])->findOrFail($id);
+    $treino = Treino::with(['aluno.user', 'itens.exercicio'])
+        ->where('aluno_id', $id)
+        ->where('status', 'ativo')
+        ->latest()
+        ->first();
 
-    $user = Auth::user();
-
-    if ($user->role === 'aluno') {
-        if (!$user->aluno || $user->aluno->id != $treino->aluno_id) {
-            abort(403, 'Acesso não autorizado.');
-        }
+    if (!$treino) {
+        return view('treinos.sem-treino');
     }
 
     return view('treinos.show', compact('treino'));

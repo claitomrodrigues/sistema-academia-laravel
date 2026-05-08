@@ -23,19 +23,39 @@ class AsaasService
         ])->baseUrl($this->baseUrl);
     }
 
-    public function criarCliente($aluno)
+    private function limparCpfCnpj(?string $cpfCnpj): string
     {
-        $response = $this->client()->post('/customers', [
-            'name' => $aluno->user->name ?? $aluno->nome,
-            'cpfCnpj' => preg_replace('/\D/', '', $aluno->cpf),
-            'email' => $aluno->user->email ?? null,
-        ]);
+        return preg_replace('/\D/', '', $cpfCnpj ?? '');
+    }
 
-        if ($response->failed()) {
-            throw new \Exception('Erro ao criar cliente no Asaas: ' . $response->body());
+    private function validarCpfCnpj(string $cpfCnpj): void
+    {
+        if (strlen($cpfCnpj) !== 11 && strlen($cpfCnpj) !== 14) {
+            throw new \Exception('CPF/CNPJ inválido. Informe um CPF com 11 dígitos ou CNPJ com 14 dígitos.');
         }
 
-        return $response->json();
+        if (preg_match('/^(\d)\1+$/', $cpfCnpj)) {
+            throw new \Exception('CPF/CNPJ inválido. Não use números repetidos como 00000000000.');
+        }
+    }
+
+    public function criarCliente($aluno)
+    {
+       $cpfCnpj = $this->limparCpfCnpj($aluno->cpf);
+
+    $this->validarCpfCnpj($cpfCnpj);
+
+    $response = $this->client()->post('/customers', [
+        'name' => $aluno->user->name ?? $aluno->nome,
+        'cpfCnpj' => $cpfCnpj,
+        'email' => $aluno->user->email ?? null,
+    ]);
+
+    if ($response->failed()) {
+        throw new \Exception('Erro ao criar cliente no Asaas: ' . $response->body());
+    }
+
+    return $response->json();
     }
 
     public function criarCobranca($customerId, $pagamento, string $metodo)

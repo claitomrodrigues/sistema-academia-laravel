@@ -23,7 +23,7 @@ class CobrancaController extends Controller
             'vencimento' => 'required|date',
         ]);
 
-        Pagamento::create([
+        $pagamento = Pagamento::create([
             'matricula_id' => $request->matricula_id,
             'valor' => $request->valor,
             'vencimento' => $request->vencimento,

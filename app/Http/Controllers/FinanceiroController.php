@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Pagamento;
 use App\Models\Transacao;
 use App\Models\Matricula;
-use App\Models\Transacoes;
 use App\Services\AsaasService;
 
 class FinanceiroController extends Controller
@@ -28,7 +27,9 @@ class FinanceiroController extends Controller
     public function filtro(Request $request)
     {
         $pagamentos = Pagamento::with('matricula.aluno.user', 'transacao')
-            ->where('status', $request->status)
+            ->when($request->status, function ($query) use ($request) {
+                $query->where('status', $request->status);
+            })
             ->get();
 
         return view('financeiro.index', compact('pagamentos'));
@@ -64,9 +65,7 @@ class FinanceiroController extends Controller
     public function pagar($id)
     {
         $pagamento = Pagamento::findOrFail($id);
-
-        $pagamento->status = 'pago';
-        $pagamento->save();
+        $pagamento->update(['status' => 'pago']);
 
         return redirect()->back()->with('success', 'Pagamento confirmado!');
     }
@@ -79,15 +78,15 @@ class FinanceiroController extends Controller
         ]);
 
         $pagamento = Pagamento::with('matricula.aluno.user')->findOrFail($request->pagamento_id);
-
         $aluno = $pagamento->matricula->aluno;
 
         try {
-            if (!$aluno->asaas_customer_id) {
+            if (empty($aluno->asaas_customer_id)) {
                 $cliente = $asaas->criarCliente($aluno);
 
-                $aluno->asaas_customer_id = $cliente['id'];
-                $aluno->save();
+                $aluno->update([
+                    'asaas_customer_id' => $cliente['id'],
+                ]);
             }
 
             $cobranca = $asaas->criarCobranca(
@@ -100,7 +99,6 @@ class FinanceiroController extends Controller
 
             if ($request->metodo === 'pix') {
                 $pix = $asaas->buscarQrCodePix($cobranca['id']);
-
                 $qrCodePix = $pix['payload'] ?? null;
             }
 
@@ -108,7 +106,7 @@ class FinanceiroController extends Controller
                 ['pagamento_id' => $pagamento->id],
                 [
                     'metodo' => $request->metodo,
-                    'asaas_payment_id' => $cobranca['id'],
+                    'asaas_payment_id' => $cobranca['id'] ?? null,
                     'codigo_barras' => $request->metodo === 'boleto'
                         ? ($cobranca['bankSlipUrl'] ?? $cobranca['invoiceUrl'] ?? null)
                         : null,
@@ -117,9 +115,13 @@ class FinanceiroController extends Controller
                 ]
             );
 
-            return redirect()->back()->with('success', 'Cobrança gerada com sucesso no Asaas!');
+            return redirect()
+                ->back()
+                ->with('success', 'Cobrança gerada com sucesso no Asaas!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
+            return redirect()
+                ->back()
+                ->with('error', $e->getMessage());
         }
     }
 }

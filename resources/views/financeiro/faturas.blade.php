@@ -5,7 +5,6 @@
 @section('content')
 
 <style>
-
     .fit-header{
         display: flex;
         justify-content: space-between;
@@ -116,22 +115,74 @@
         border: 1px solid rgba(255,255,255,.04);
         border-radius: 16px;
         padding: 16px;
+        min-width: 280px;
     }
 
     .payment-method{
         color: #fff;
         font-weight: 800;
-        margin-bottom: 10px;
+        margin-bottom: 14px;
         display: flex;
         align-items: center;
         gap: 8px;
     }
 
-    .payment-code{
-        color: #9ca3af;
-        font-size: 13px;
-        word-break: break-word;
-        line-height: 1.6;
+    .pix-qrcode{
+        background: #fff;
+        padding: 10px;
+        border-radius: 16px;
+        max-width: 240px;
+        margin: 0 auto 14px auto;
+        display: block;
+    }
+
+    .pix-textarea{
+        background: #020617 !important;
+        color: #e5e7eb !important;
+        border: 1px solid rgba(255,255,255,.08) !important;
+        border-radius: 12px;
+        font-size: 12px;
+        resize: none;
+        margin-bottom: 10px;
+    }
+
+    .btn-copy-pix{
+        background: #22c55e;
+        border: none;
+        color: #052e16;
+        border-radius: 12px;
+        padding: 10px 14px;
+        font-weight: 900;
+        width: 100%;
+    }
+
+    .btn-copy-pix:hover{
+        background: #16a34a;
+        color: #fff;
+    }
+
+    .btn-boleto{
+        background: #f59e0b;
+        border: none;
+        color: #111827;
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-weight: 900;
+        text-decoration: none;
+        width: 100%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-boleto:hover{
+        background: #d97706;
+        color: #fff;
+    }
+
+    .muted-text{
+        color: #6b7280;
     }
 
     .empty-box{
@@ -159,24 +210,16 @@
         color: #fff;
     }
 
-    .muted-text{
-        color: #6b7280;
-    }
-
     @media(max-width: 992px){
-
         .fit-table{
             display: block;
             overflow-x: auto;
         }
     }
-
 </style>
 
 <div class="fit-header">
-
     <div>
-
         <h1 class="fit-title">
             Minhas Faturas
         </h1>
@@ -184,15 +227,12 @@
         <p class="fit-subtitle">
             Acompanhe pagamentos, vencimentos e transações da sua matrícula.
         </p>
-
     </div>
-
 </div>
 
 <div class="fit-card">
 
     <table class="fit-table">
-
         <thead>
             <tr>
                 <th>Valor</th>
@@ -203,125 +243,153 @@
         </thead>
 
         <tbody>
-
             @forelse($pagamentos as $pagamento)
 
                 <tr>
-
                     <td>
-
                         <span class="price-badge">
                             R$ {{ number_format($pagamento->valor, 2, ',', '.') }}
                         </span>
-
                     </td>
 
                     <td>
-
                         <div class="date-box">
                             {{ \Carbon\Carbon::parse($pagamento->vencimento)->format('d/m/Y') }}
                         </div>
-
                     </td>
 
                     <td>
-
                         @if($pagamento->status == 'pago')
-
                             <span class="status-badge status-paid">
                                 Pago
                             </span>
-
                         @else
-
                             <span class="status-badge status-pending">
                                 Pendente
                             </span>
-
                         @endif
-
                     </td>
 
                     <td>
-
                         @if($pagamento->transacao)
 
                             <div class="payment-box">
 
                                 <div class="payment-method">
-
                                     @if($pagamento->transacao->metodo == 'pix')
-
                                         <i class="bi bi-qr-code"></i>
-
                                         PIX
-
                                     @else
-
                                         <i class="bi bi-upc-scan"></i>
-
                                         BOLETO
-
                                     @endif
-
                                 </div>
 
-                                <div class="payment-code">
+                                @if($pagamento->transacao->metodo == 'pix')
 
-                                    @if($pagamento->transacao->metodo == 'pix')
+                                    @if($pagamento->transacao->qr_code_pix)
 
-                                        {{ $pagamento->transacao->qr_code_pix }}
+                                        <img
+                                            src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data={{ urlencode($pagamento->transacao->qr_code_pix) }}"
+                                            class="pix-qrcode"
+                                            alt="QR Code PIX"
+                                        >
+
+                                        <textarea
+                                            class="form-control pix-textarea"
+                                            rows="4"
+                                            readonly
+                                            id="pix-{{ $pagamento->id }}"
+                                        >{{ $pagamento->transacao->qr_code_pix }}</textarea>
+
+                                        <button
+                                            type="button"
+                                            class="btn-copy-pix"
+                                            onclick="copiarPix('pix-{{ $pagamento->id }}')"
+                                        >
+                                            <i class="bi bi-copy"></i>
+                                            Copiar PIX
+                                        </button>
 
                                     @else
-
-                                        {{ $pagamento->transacao->codigo_barras }}
-
+                                        <span class="muted-text">
+                                            PIX gerado, mas código não encontrado.
+                                        </span>
                                     @endif
 
-                                </div>
+                                @else
+
+                                    @if($pagamento->transacao->codigo_barras)
+
+                                        <a
+                                            href="{{ $pagamento->transacao->codigo_barras }}"
+                                            target="_blank"
+                                            class="btn-boleto"
+                                        >
+                                            <i class="bi bi-box-arrow-up-right"></i>
+                                            Abrir Boleto
+                                        </a>
+
+                                    @else
+                                        <span class="muted-text">
+                                            Boleto gerado, mas link não encontrado.
+                                        </span>
+                                    @endif
+
+                                @endif
 
                             </div>
 
                         @else
-
                             <span class="muted-text">
                                 Nenhuma transação gerada
                             </span>
-
                         @endif
-
                     </td>
-
                 </tr>
 
             @empty
 
                 <tr>
-
                     <td colspan="4">
-
                         <div class="empty-box">
                             Nenhuma fatura encontrada.
                         </div>
-
                     </td>
-
                 </tr>
 
             @endforelse
-
         </tbody>
-
     </table>
 
 </div>
 
 <a href="{{ route('home') }}" class="btn-fit-secondary">
-
     <i class="bi bi-arrow-left"></i>
-
     Voltar
-
 </a>
+
+<script>
+    function copiarPix(id)
+    {
+        const campo = document.getElementById(id);
+
+        if (!campo) {
+            alert('Código PIX não encontrado.');
+            return;
+        }
+
+        campo.select();
+        campo.setSelectionRange(0, 99999);
+
+        navigator.clipboard.writeText(campo.value)
+            .then(() => {
+                alert('PIX copiado com sucesso!');
+            })
+            .catch(() => {
+                alert('Não foi possível copiar o PIX automaticamente.');
+            });
+    }
+</script>
 
 @endsection

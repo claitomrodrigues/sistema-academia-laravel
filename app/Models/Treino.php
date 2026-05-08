@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Treino extends Model
 {
     protected $fillable = [
-        'aluno_id',
-        'tipo',
-        'status',
-    ];
+    'aluno_id',
+    'tipo',
+    'dias_semana',
+    'valor_mensal',
+    'status',
+];
 
     public function aluno()
     {

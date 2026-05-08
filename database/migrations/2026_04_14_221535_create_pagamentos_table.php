@@ -13,7 +13,9 @@ return new class extends Migration
     {
     Schema::create('pagamentos', function (Blueprint $table) {
     $table->id();
-    $table->foreignId('matricula_id')->constrained();
+    $table->foreignId('matricula_id')
+    ->constrained('matriculas')
+    ->onDelete('cascade');
     $table->decimal('valor', 8, 2);
     $table->date('vencimento');
     $table->string('status');
