@@ -1,213 +1,117 @@
-# 💪 FitCloud
+# FitCloud | Gym Management System
 
-<div align="center">
+[![Laravel](https://shields.io)](https://laravel.com)
+[![PHP](https://shields.io)](https://php.net)
+[![Bootstrap](https://shields.io)](https://getbootstrap.com)
+[![MySQL](https://shields.io)](https://mysql.com)
+[![License](https://shields.io)](LICENSE)
 
-### Plataforma moderna de gerenciamento para academias
-
-Sistema web completo desenvolvido para otimizar a gestão de academias, oferecendo controle inteligente de alunos, treinos, planos e mensalidades em uma interface moderna, responsiva e intuitiva.
-
-<br>
-
-![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
-![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-
-</div>
+O **FitCloud** é uma plataforma robusta de gestão para academias, projetada para centralizar o controle operacional e financeiro. O sistema oferece uma interface responsiva para instrutores e alunos, otimizando o acompanhamento de treinos e a gestão de mensalidades.
 
 ---
 
-## 📌 Sobre o projeto
+## 🛠 Tecnologias e Dependências
 
-O **FitCloud** é uma plataforma web desenvolvida para auxiliar no gerenciamento de academias, centralizando em um único sistema o controle de alunos, planos, treinos, mensalidades e pagamentos.
+### Core Stack
+*   **Backend:** PHP 8.x + Laravel Framework
+*   **Frontend:** Blade Templates, JavaScript, CSS3
+*   **UI/UX:** Bootstrap 5 & Bootstrap Icons
+*   **Database:** Suporte nativo para SQLite e MySQL
 
-O projeto foi construído com foco em organização, praticidade e boa experiência de uso, oferecendo uma interface moderna para instrutores e alunos.
-
----
-
-## 🚀 Funcionalidades
-
-### 🔐 Autenticação e permissões
-
-- Login seguro com controle de sessão
-- Controle de acesso por perfil
-- Middleware de autorização
-- Perfis de usuário:
-  - Instrutor
-  - Aluno
-
-### 👥 Gestão de alunos
-
-- Cadastro de alunos
-- Edição de informações
-- Remoção de registros
-- Controle de objetivo físico
-- Associação entre usuário, aluno e matrícula
-
-### 📋 Gestão de planos
-
-- Cadastro de planos personalizados
-- Definição de valor
-- Frequência semanal
-- Período
-- Descrição do plano
-
-### 🏋️ Banco de exercícios
-
-- Cadastro de exercícios
-- Organização por grupo muscular
-- Estrutura preparada para vídeos e descrições
-
-### 🧠 Gestão de treinos
-
-- Criação de fichas personalizadas
-- Seleção múltipla de exercícios
-- Filtro por grupo muscular
-- Definição de séries, repetições e carga
-- Organização por tipo de treino
-
-### 💰 Cálculo automático de mensalidade
-
-| Frequência | Valor |
-|---|---|
-| 2x por semana | R$ 100 |
-| 3x por semana | R$ 110 |
-| 4x por semana | R$ 120 |
-| 5x por semana | R$ 130 |
-| 6x por semana | R$ 140 |
-| 7x por semana | R$ 150 |
-
-### 📄 Área do aluno
-
-- Visualização da ficha de treino
-- Consulta de mensalidades
-- Acompanhamento de pagamentos
-- Visualização de treinos ativos
-
-### 💳 Módulo financeiro
-
-- Controle de mensalidades
-- Listagem de pagamentos
-- Filtros financeiros
-- Estrutura preparada para integração com:
-  - PIX
-  - Boleto
-  - Asaas
-
-### 📑 Exportação em PDF
-
-- Geração automática da ficha de treino
-- Layout otimizado para impressão
-- Exportação via DomPDF
+### Bibliotecas Adicionais
+*   **DomPDF:** Geração de fichas de treino em PDF
+*   **Middleware:** Controle de autenticação e níveis de acesso
 
 ---
 
-## 🎨 Interface
+## ⚙️ Funcionalidades Principais
 
-O sistema possui uma interface moderna e responsiva, com foco em usabilidade.
+### Gestão Administrativa e Instrutores
+*   **Controle de Acesso:** Autenticação segura com perfis distintos (Instrutor/Aluno).
+*   **Gestão de Alunos:** Ciclo completo de cadastro, edição e associação de matrículas.
+*   **Banco de Exercícios:** Catálogo organizado por grupos musculares.
+*   **Prescrição de Treinos:** Montagem de fichas personalizadas com séries, repetições e carga.
+*   **Módulo Financeiro:** Gestão de planos e fluxos de pagamentos.
 
-### Destaques
-
-- Tema dark premium
-- Dashboard administrativo
-- Login personalizado
-- Sidebar moderna
-- Layout responsivo
-- Animações e efeitos visuais suaves
+### Experiência do Aluno
+*   **Dashboard do Aluno:** Visualização de treinos ativos e evolução física.
+*   **Financeiro:** Consulta de histórico de pagamentos e status de mensalidade.
+*   **Portabilidade:** Exportação de fichas de treino em PDF otimizadas para dispositivos móveis ou impressão.
 
 ---
 
-## 🛠 Tecnologias utilizadas
+## 📊 Estrutura de Planos
 
-### Backend
 
-- PHP 8
-- Laravel
+| Frequência Semanal | Valor Mensal |
+| :--- | :--- |
+| 2 dias | R$ 100,00 |
+| 3 dias | R$ 110,00 |
+| 5 dias | R$ 130,00 |
+| 7 dias | R$ 150,00 |
 
-### Frontend
+---
 
-- Blade
-- Bootstrap 5
-- JavaScript
-- CSS3
+## 🚀 Instalação e Configuração
 
-### Banco de dados
+### Requisitos Prévios
+*   PHP >= 8.1
+*   Composer
+*   Servidor de Banco de Dados (MySQL ou SQLite)
 
-- SQLite
-- MySQL
+### Passo a Passo
 
-### Bibliotecas
+1. **Clonagem do repositório:**
+   ```bash
+   git clone https://github.com/claitomrodrigues/sistema-academia-laravel.git
+   cd sistema-academia-laravel
+   ```
 
-- Bootstrap Icons
-- DomPDF
+2. **Gerenciamento de dependências:**
+   ```bash
+   composer install
+   ```
 
-🏠 Dashboard
-![Dashboard](./docs/dashboard.png)
-🏋️ Gestão de Treinos
-![Gestão de Treinos](./docs/treinos.png)
-💰 Financeiro
-![Financeiro](./docs/financeiro.png)
-⚙️ Como executar o projeto
-1. Clone o repositório
-git clone https://github.com/claitomrodrigues/sistema-academia-laravel.git
-2. Acesse a pasta do projeto
-cd sistema-academia-laravel
-3. Instale as dependências
-composer install
-4. Crie o arquivo de ambiente
-cp .env.example .env
+3. **Configuração de ambiente:**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-No Windows, se o comando acima não funcionar, use:
+4. **Banco de Dados:**
+   No arquivo `.env`, configure suas credenciais. Para SQLite:
+   ```env
+   DB_CONNECTION=sqlite
+   # Crie o arquivo database/database.sqlite manualmente
+   ```
 
-copy .env.example .env
-5. Gere a chave da aplicação
-php artisan key:generate
-6. Configure o banco de dados
-SQLite
+5. **Migração e Inicialização:**
+   ```bash
+   php artisan migrate
+   php artisan serve
+   ```
+   Acesse: `http://localhost:8000`
 
-Crie o arquivo:
+---
 
-database/database.sqlite
+## 🏗 Roadmap de Desenvolvimento
 
-E configure no .env:
+*   [ ] Integração com Gateway de Pagamento (Asaas/PIX)
+*   [ ] Dashboard analítico com gráficos de faturamento
+*   [ ] Sistema de notificações push via WhatsApp/E-mail
+*   [ ] IA para sugestão baseada em biotipo
+*   [ ] Módulo de avaliação física (Antropometria)
 
-DB_CONNECTION=sqlite
-MySQL
+---
 
-Configure no .env:
+## 👤 Desenvolvedor
 
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=fitcloud
-DB_USERNAME=root
-DB_PASSWORD=
-7. Execute as migrations
-php artisan migrate
-8. Inicie o servidor
-php artisan serve
+**Claitom Rodrigues**
+*Full Stack Developer em formação*
+[LinkedIn](https://linkedin.com) | [Portfolio](https://seu-portfolio.com)
 
-Acesse:
+---
 
-http://127.0.0.1:8000
-📌 Roadmap
- Integração completa com Asaas
- Pagamento via PIX
- Pagamento via boleto
- Dashboard analítico
- Relatórios financeiros
- Sistema de notificações
- Aplicativo mobile
- Controle de acesso
- Inteligência artificial para sugestão de treinos
-👨‍💻 Desenvolvedor
+## 📄 Licença
 
-Claitom Rodrigues
-
-Full Stack Developer em formação
-Estudante de Análise e Desenvolvimento de Sistemas
-
-📄 Licença
-
-Este projeto está sob a licença MIT.
+Este projeto é distribuído sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
