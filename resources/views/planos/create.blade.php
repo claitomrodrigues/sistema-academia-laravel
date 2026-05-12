@@ -227,29 +227,40 @@
                 @enderror
             </div>
 
-            <div class="col-md-6">
-                <label for="periodo">Período</label>
+           <div class="col-md-6">
+    <label for="tipo">Tipo do plano</label>
 
-                <input
-                    type="text"
-                    id="periodo"
-                    name="periodo"
-                    value="{{ old('periodo') }}"
-                    class="form-control @error('periodo') is-invalid @enderror"
-                    placeholder="Ex: mensal, trimestral, anual"
-                    required
-                >
+    <select
+        id="tipo"
+        name="tipo"
+        class="form-control @error('tipo') is-invalid @enderror"
+        required
+    >
+        <option value="">Selecione</option>
 
-                <div class="form-hint">
-                    Informe a recorrência do plano.
-                </div>
+        <option value="mensal" {{ old('tipo') == 'mensal' ? 'selected' : '' }}>
+            Mensal
+        </option>
 
-                @error('periodo')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
+        <option value="trimestral" {{ old('tipo') == 'trimestral' ? 'selected' : '' }}>
+            Trimestral
+        </option>
+
+        <option value="anual" {{ old('tipo') == 'anual' ? 'selected' : '' }}>
+            Anual
+        </option>
+    </select>
+
+    <div class="form-hint">
+        Escolha o tipo de recorrência do plano.
+    </div>
+
+    @error('tipo')
+        <div class="invalid-feedback">
+            {{ $message }}
+        </div>
+    @enderror
+</div>
 
             <div class="col-md-12">
                 <label for="descricao">Descrição</label>

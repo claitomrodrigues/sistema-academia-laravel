@@ -14,58 +14,47 @@
         animation: fadeUp .5s ease both;
     }
 
-    .filter-box,
-    .price-box {
-        background: #020617;
-        border: 1px solid rgba(255,255,255,.07);
-        border-radius: 20px;
-        padding: 18px;
-        margin-bottom: 24px;
-    }
-
-    .price-box {
-        border-color: rgba(239,68,68,.25);
-        background: linear-gradient(135deg, rgba(239,68,68,.12), #020617);
-    }
-
-    .price-value {
-        color: #fff;
-        font-size: 28px;
-        font-weight: 900;
-    }
-
-    .price-text {
-        color: #fca5a5;
-        font-weight: 700;
-        margin: 0;
-    }
-
     .fit-page-title {
         color: #fff;
-        font-size: 32px;
+        font-size: 34px;
         font-weight: 900;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }
 
     .fit-page-subtitle {
-        color: #9ca3af;
+        color: #94a3b8;
         margin-bottom: 0;
+        font-size: 15px;
     }
 
     .fit-card {
-        background: rgba(17, 24, 39, .92);
-        border: 1px solid rgba(255,255,255,.08);
+        background: rgba(17, 24, 39, .94);
+        border: 1px solid rgba(255,255,255,.06);
         border-radius: 28px;
-        padding: 30px;
-        box-shadow: 0 22px 55px rgba(0,0,0,.35);
+        padding: 32px;
+        box-shadow: 0 25px 60px rgba(0,0,0,.45);
+        position: relative;
+        overflow: hidden;
         animation: fadeUp .6s ease both;
     }
 
+    .fit-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(circle at top right, rgba(239,68,68,.15), transparent 25%),
+            radial-gradient(circle at bottom left, rgba(59,130,246,.08), transparent 30%);
+        pointer-events: none;
+    }
+
     .section-title {
+        position: relative;
+        z-index: 2;
         color: #fff;
         font-size: 20px;
         font-weight: 900;
-        margin-bottom: 18px;
+        margin-bottom: 22px;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -86,8 +75,9 @@
         background: #020617;
         border: 1px solid #1f2937;
         color: #fff;
-        border-radius: 14px;
-        padding: 12px 14px;
+        border-radius: 16px;
+        padding: 13px 15px;
+        transition: .25s;
     }
 
     .form-control:focus,
@@ -95,7 +85,8 @@
         background: #020617;
         color: #fff;
         border-color: #ef4444;
-        box-shadow: 0 0 0 .25rem rgba(239, 68, 68, .15);
+        box-shadow: 0 0 0 .25rem rgba(239,68,68,.18);
+        transform: translateY(-2px);
     }
 
     .form-control::placeholder {
@@ -107,84 +98,139 @@
         color: #fff;
     }
 
-    .divider {
-        height: 1px;
-        background: rgba(255,255,255,.08);
-        margin: 30px 0;
-    }
-
-    .exercise-list {
-        display: grid;
-        gap: 18px;
-    }
-
-    .exercise-check-card {
-        background: #020617;
-        border: 1px solid rgba(255,255,255,.07);
-        border-radius: 22px;
-        padding: 20px;
-        transition: .25s;
+    .premium-box {
+        background:
+            linear-gradient(
+                135deg,
+                rgba(239,68,68,.18),
+                rgba(15,23,42,.95)
+            );
+        border: 1px solid rgba(239,68,68,.18);
+        border-radius: 24px;
+        padding: 24px;
+        margin-top: 26px;
         position: relative;
         overflow: hidden;
     }
 
-    .exercise-check-card::before {
+    .premium-box::before {
         content: '';
         position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at top right, rgba(239,68,68,.22), transparent 35%);
-        opacity: 0;
-        transition: .25s;
+        width: 280px;
+        height: 280px;
+        background: rgba(239,68,68,.08);
+        border-radius: 50%;
+        top: -140px;
+        right: -140px;
+        filter: blur(20px);
     }
 
-    .exercise-check-card:hover {
-        transform: translateY(-3px);
-        border-color: rgba(239,68,68,.45);
-        box-shadow: 0 14px 35px rgba(239,68,68,.16);
-    }
-
-    .exercise-check-card:has(.exercise-checkbox:checked) {
-        border-color: #ef4444;
-        background: linear-gradient(135deg, rgba(239,68,68,.16), #020617);
-        box-shadow: 0 16px 40px rgba(239,68,68,.22);
-    }
-
-    .exercise-check-card:has(.exercise-checkbox:checked)::before {
-        opacity: 1;
-    }
-
-    .exercise-check-header,
-    .exercise-fields {
+    .price-text {
+        color: #fca5a5;
+        font-size: 14px;
+        font-weight: 800;
+        margin-bottom: 6px;
         position: relative;
         z-index: 2;
     }
 
-    .exercise-checkbox {
-        margin-right: 10px;
-        cursor: pointer;
-        transform: scale(1.2);
+    .price-value {
+        color: #fff;
+        font-size: 38px;
+        font-weight: 900;
+        position: relative;
+        z-index: 2;
+        text-shadow: 0 0 20px rgba(239,68,68,.35);
     }
 
-    .exercise-checkbox:checked {
-        background-color: #ef4444;
+    .price-extra {
+        color: #cbd5e1;
+        font-size: 14px;
+        margin-top: 8px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .divider {
+        height: 1px;
+        background: rgba(255,255,255,.08);
+        margin: 34px 0;
+    }
+
+    .filter-box {
+        background: #020617;
+        border: 1px solid rgba(255,255,255,.08);
+        border-radius: 22px;
+        padding: 20px;
+        margin-bottom: 24px;
+    }
+
+    .filter-label {
+        color: #fff;
+        font-weight: 800;
+        margin-bottom: 12px;
+        display: block;
+    }
+
+    .exercise-list {
+        display: grid;
+        gap: 20px;
+    }
+
+    .exercise-check-card {
+        background: #020617;
+        border: 1px solid rgba(255,255,255,.06);
+        border-radius: 24px;
+        padding: 22px;
+        transition: .28s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .exercise-check-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(239,68,68,.4);
+        box-shadow: 0 18px 40px rgba(239,68,68,.15);
+    }
+
+    .exercise-check-card:has(.exercise-checkbox:checked) {
         border-color: #ef4444;
+        background:
+            linear-gradient(
+                135deg,
+                rgba(239,68,68,.16),
+                #020617
+            );
+        box-shadow: 0 20px 45px rgba(239,68,68,.22);
+    }
+
+    .exercise-check-header {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .exercise-checkbox {
+        transform: scale(1.2);
+        cursor: pointer;
     }
 
     .exercise-name {
         color: #fff;
+        font-size: 17px;
         font-weight: 900;
         cursor: pointer;
-        font-size: 16px;
     }
 
     .exercise-muscle {
-        margin-left: 10px;
+        background: rgba(239,68,68,.14);
         color: #fca5a5;
-        font-size: 13px;
-        font-weight: 800;
-        background: rgba(239,68,68,.15);
-        padding: 5px 10px;
+        border: 1px solid rgba(239,68,68,.18);
+        padding: 5px 12px;
         border-radius: 999px;
+        font-size: 12px;
+        font-weight: 800;
     }
 
     .exercise-fields {
@@ -197,42 +243,39 @@
     }
 
     .btn-fit-primary {
-        background: linear-gradient(135deg, #ef4444, #b91c1c);
+        background: linear-gradient(135deg, #ef4444, #991b1b);
         border: none;
         color: #fff;
-        border-radius: 14px;
-        padding: 12px 22px;
+        border-radius: 16px;
+        padding: 13px 24px;
         font-weight: 800;
-        transition: .2s;
-        box-shadow: 0 12px 30px rgba(239, 68, 68, .25);
+        box-shadow: 0 14px 35px rgba(239,68,68,.28);
+        transition: .25s;
     }
 
     .btn-fit-primary:hover {
-        transform: translateY(-2px);
+        transform: translateY(-3px);
         color: #fff;
-        box-shadow: 0 16px 38px rgba(239, 68, 68, .38);
     }
 
     .btn-fit-secondary {
-        background: #1f2937;
+        background: #111827;
         border: 1px solid rgba(255,255,255,.08);
         color: #d1d5db;
-        border-radius: 14px;
-        padding: 12px 22px;
-        font-weight: 800;
+        border-radius: 16px;
+        padding: 13px 24px;
         text-decoration: none;
-        transition: .2s;
+        font-weight: 800;
     }
 
     .btn-fit-secondary:hover {
-        background: #374151;
+        background: #1f2937;
         color: #fff;
-        transform: translateY(-2px);
     }
 
     .alert {
-        border-radius: 16px;
         border: none;
+        border-radius: 18px;
     }
 
     @keyframes fadeUp {
@@ -249,236 +292,430 @@
 </style>
 
 <div class="fit-page-header">
-    <h1 class="fit-page-title">Montar Treino</h1>
+
+    <h1 class="fit-page-title">
+        Criar Treino Premium
+    </h1>
 
     <p class="fit-page-subtitle">
-        Crie uma ficha personalizada com vários exercícios, séries, repetições e cargas.
+        Monte uma ficha inteligente e associe um plano ao aluno.
     </p>
+
 </div>
 
 @if ($errors->any())
+
     <div class="alert alert-danger">
+
         @foreach ($errors->all() as $erro)
             <div>{{ $erro }}</div>
         @endforeach
+
     </div>
+
 @endif
 
 <div class="fit-card">
+
     <form action="{{ route('treinos.store') }}" method="POST">
+
         @csrf
 
         <div class="section-title">
-            <i class="bi bi-person-badge"></i>
-            Informações do treino
+
+            <i class="bi bi-person-badge-fill"></i>
+            Dados do treino
+
         </div>
 
         <div class="row g-4">
-            <div class="col-md-4">
-                <label for="aluno_id">Aluno</label>
 
-                <select name="aluno_id" id="aluno_id" class="form-select" required>
-                    <option value="">Selecione o aluno</option>
+            <div class="col-md-4">
+
+                <label>Aluno</label>
+
+                <select name="aluno_id" class="form-select" required>
+
+                    <option value="">
+                        Selecione o aluno
+                    </option>
 
                     @foreach($alunos as $aluno)
-                        <option value="{{ $aluno->id }}" {{ old('aluno_id') == $aluno->id ? 'selected' : '' }}>
+
+                        <option value="{{ $aluno->id }}">
                             {{ $aluno->user->name ?? $aluno->nome }}
                         </option>
+
                     @endforeach
+
                 </select>
+
             </div>
 
             <div class="col-md-4">
-                <label for="tipo">Tipo do treino</label>
+
+                <label>Plano</label>
+
+                <select
+                    name="plano_id"
+                    id="plano_id"
+                    class="form-select"
+                    required
+                >
+
+                    <option value="">
+                        Selecione o plano
+                    </option>
+
+                    @foreach($planos as $plano)
+
+                        <option
+                            value="{{ $plano->id }}"
+                            data-tipo="{{ $plano->tipo }}"
+                            data-valor="{{ $plano->valor }}"
+                        >
+                            {{ $plano->nome }}
+                            - R$ {{ number_format($plano->valor, 2, ',', '.') }}
+                        </option>
+
+                    @endforeach
+
+                </select>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <label>Tipo do treino</label>
 
                 <input
                     type="text"
-                    id="tipo"
                     name="tipo"
-                    value="{{ old('tipo') }}"
                     class="form-control"
-                    placeholder="Ex: A, B, C, Superior, Inferior"
+                    placeholder="Ex: Hipertrofia / ABC / Superior"
                     required
                 >
+
             </div>
 
-            <div class="col-md-4">
-                <label for="dias_semana">Dias por semana</label>
+            <div
+                class="col-md-4"
+                id="dias_semana_container"
+                style="display:none;"
+            >
 
-                <select name="dias_semana" id="dias_semana" class="form-select" required>
+                <label>Dias por semana</label>
+
+                <select
+                    name="dias_semana"
+                    id="dias_semana"
+                    class="form-select"
+                >
+
                     <option value="">Selecione</option>
-                    <option value="2" {{ old('dias_semana') == 2 ? 'selected' : '' }}>2x na semana</option>
-                    <option value="3" {{ old('dias_semana') == 3 ? 'selected' : '' }}>3x na semana</option>
-                    <option value="4" {{ old('dias_semana') == 4 ? 'selected' : '' }}>4x na semana</option>
-                    <option value="5" {{ old('dias_semana') == 5 ? 'selected' : '' }}>5x na semana</option>
-                    <option value="6" {{ old('dias_semana') == 6 ? 'selected' : '' }}>6x na semana</option>
-                    <option value="7" {{ old('dias_semana') == 7 ? 'selected' : '' }}>Todos os dias</option>
+                    <option value="2">2x na semana</option>
+                    <option value="3">3x na semana</option>
+                    <option value="4">4x na semana</option>
+                    <option value="5">5x na semana</option>
+                    <option value="6">6x na semana</option>
+                    <option value="7">Todos os dias</option>
+
                 </select>
+
             </div>
+
+            <div
+                class="col-md-4"
+                id="personal_container"
+                style="display:none;"
+            >
+
+                <label>Personal Trainer</label>
+
+                <select
+                    name="personal"
+                    id="personal"
+                    class="form-select"
+                >
+
+                    <option value="0" data-extra="0">
+                        Sem personal
+                    </option>
+
+                    <option value="1" data-extra="80">
+                        Com personal (+R$ 80,00)
+                    </option>
+
+                </select>
+
+            </div>
+
         </div>
 
-        <div class="price-box mt-4">
-            <p class="price-text">
-                <i class="bi bi-cash-coin me-1"></i>
-                Valor mensal calculado automaticamente
-            </p>
+        <div class="premium-box">
 
-            <div class="price-value" id="valor_mensal_preview">
-                R$ 100,00
+            <div class="price-text">
+
+                <i class="bi bi-stars me-1"></i>
+                Valor do plano selecionado
+
             </div>
+
+            <div class="price-value" id="valor_plano_preview">
+                R$ 0,00
+            </div>
+
+            <div class="price-extra" id="descricao_plano">
+                Selecione um plano
+            </div>
+
         </div>
 
         <div class="divider"></div>
 
         <div class="section-title">
+
             <i class="bi bi-lightning-charge-fill"></i>
             Exercícios
+
         </div>
 
         <div class="filter-box">
-            <label for="filtro_grupo">
+
+            <label class="filter-label">
+
                 <i class="bi bi-funnel-fill text-danger me-1"></i>
-                Filtrar por grupo muscular
+                Filtrar grupo muscular
+
             </label>
 
             <select id="filtro_grupo" class="form-select">
-                <option value="todos">Todos os exercícios</option>
+
+                <option value="todos">
+                    Todos os exercícios
+                </option>
 
                 @foreach($exercicios->pluck('grupo_muscular')->unique()->sort() as $grupo)
+
                     <option value="{{ Str::slug($grupo) }}">
                         {{ $grupo }}
                     </option>
+
                 @endforeach
+
             </select>
 
-            <small class="text-secondary d-block mt-2">
-                Escolha um grupo muscular para facilitar a montagem do treino.
-            </small>
         </div>
 
         <div class="exercise-list">
+
             @foreach($exercicios as $exercicio)
+
                 <div
                     class="exercise-check-card"
                     data-grupo="{{ Str::slug($exercicio->grupo_muscular) }}"
                 >
+
                     <div class="exercise-check-header">
+
                         <input
-                            class="form-check-input exercise-checkbox"
                             type="checkbox"
+                            class="form-check-input exercise-checkbox"
                             name="itens[{{ $exercicio->id }}][exercicio_id]"
                             value="{{ $exercicio->id }}"
                             id="exercicio_{{ $exercicio->id }}"
-                            {{ old("itens.{$exercicio->id}.exercicio_id") ? 'checked' : '' }}
                         >
 
-                        <label for="exercicio_{{ $exercicio->id }}" class="exercise-name">
+                        <label
+                            class="exercise-name"
+                            for="exercicio_{{ $exercicio->id }}"
+                        >
                             {{ $exercicio->nome }}
                         </label>
 
                         <span class="exercise-muscle">
                             {{ $exercicio->grupo_muscular }}
                         </span>
+
                     </div>
 
                     <div class="exercise-fields row g-3 mt-2">
+
                         <div class="col-md-4">
+
                             <label>Séries</label>
 
                             <input
                                 type="number"
                                 name="itens[{{ $exercicio->id }}][series]"
-                                value="{{ old("itens.{$exercicio->id}.series") }}"
                                 class="form-control"
                                 placeholder="Ex: 4"
                             >
+
                         </div>
 
                         <div class="col-md-4">
+
                             <label>Repetições</label>
 
                             <input
                                 type="number"
                                 name="itens[{{ $exercicio->id }}][reps]"
-                                value="{{ old("itens.{$exercicio->id}.reps") }}"
                                 class="form-control"
                                 placeholder="Ex: 12"
                             >
+
                         </div>
 
                         <div class="col-md-4">
+
                             <label>Carga</label>
 
                             <input
                                 type="text"
                                 name="itens[{{ $exercicio->id }}][carga]"
-                                value="{{ old("itens.{$exercicio->id}.carga") }}"
                                 class="form-control"
                                 placeholder="Ex: 20kg"
                             >
+
                         </div>
+
                     </div>
+
                 </div>
+
             @endforeach
+
         </div>
 
         <div class="d-flex gap-3 mt-4">
+
             <button type="submit" class="btn btn-fit-primary">
-                <i class="bi bi-check-circle me-1"></i>
+
+                <i class="bi bi-check-circle-fill me-1"></i>
                 Salvar Treino
+
             </button>
 
             <a href="{{ route('treinos.index') }}" class="btn-fit-secondary">
+
                 <i class="bi bi-arrow-left me-1"></i>
                 Voltar
+
             </a>
+
         </div>
+
     </form>
+
 </div>
 
 <script>
+
     const filtroGrupo = document.getElementById('filtro_grupo');
     const cards = document.querySelectorAll('.exercise-check-card');
 
     filtroGrupo.addEventListener('change', function () {
+
         const grupoSelecionado = this.value;
 
         cards.forEach(card => {
-            const grupoCard = card.dataset.grupo;
 
-            if (grupoSelecionado === 'todos' || grupoSelecionado === grupoCard) {
+            const grupo = card.dataset.grupo;
+
+            if (grupoSelecionado === 'todos' || grupoSelecionado === grupo) {
+
                 card.style.display = 'block';
 
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 20);
             } else {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(12px)';
 
-                setTimeout(() => {
-                    card.style.display = 'none';
-                }, 180);
+                card.style.display = 'none';
+
             }
+
         });
+
     });
 
-    const diasSemana = document.getElementById('dias_semana');
-    const valorPreview = document.getElementById('valor_mensal_preview');
+    const planoSelect = document.getElementById('plano_id');
 
-    function atualizarValorMensal() {
-        const dias = parseInt(diasSemana.value || 2);
-        const valor = 100 + ((dias - 2) * 10);
+    const diasContainer = document.getElementById('dias_semana_container');
+    const personalContainer = document.getElementById('personal_container');
+
+    const diasSemana = document.getElementById('dias_semana');
+
+    const valorPreview = document.getElementById('valor_plano_preview');
+    const descricaoPlano = document.getElementById('descricao_plano');
+
+    const personalSelect = document.getElementById('personal');
+
+    function atualizarPlano() {
+
+        const option = planoSelect.options[planoSelect.selectedIndex];
+
+        if (!option.value) {
+
+            valorPreview.textContent = 'R$ 0,00';
+            descricaoPlano.textContent = 'Selecione um plano';
+
+            diasContainer.style.display = 'none';
+            personalContainer.style.display = 'none';
+
+            diasSemana.required = false;
+
+            return;
+        }
+
+        const tipo = option.dataset.tipo;
+
+        let valor = parseFloat(option.dataset.valor);
+
+        if (personalSelect) {
+
+            const personalOption =
+                personalSelect.options[personalSelect.selectedIndex];
+
+            const extraPersonal =
+                parseFloat(personalOption.dataset.extra || 0);
+
+            valor += extraPersonal;
+        }
 
         valorPreview.textContent = valor.toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL'
         });
+
+        let descricao = `Plano ${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`;
+
+        if (personalSelect.value === '1') {
+            descricao += ' • Com personal trainer';
+        }
+
+        descricaoPlano.textContent = descricao;
+
+        if (tipo === 'mensal') {
+
+            diasContainer.style.display = 'block';
+
+            diasSemana.required = true;
+
+        } else {
+
+            diasContainer.style.display = 'none';
+
+            diasSemana.required = false;
+        }
+
+        personalContainer.style.display = 'block';
     }
 
-    diasSemana.addEventListener('change', atualizarValorMensal);
-    atualizarValorMensal();
+    planoSelect.addEventListener('change', atualizarPlano);
+
+    personalSelect.addEventListener('change', atualizarPlano);
+
+    atualizarPlano();
+
 </script>
 
 @endsection

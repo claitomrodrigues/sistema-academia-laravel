@@ -212,7 +212,7 @@
 
 <div class="fit-card">
 
-    <div class="plan-preview">
+    <div class="plan-preview">  
 
         <div class="preview-label">
             Plano atual
@@ -226,9 +226,9 @@
             R$ {{ number_format($plano->valor, 2, ',', '.') }}
         </div>
 
-        <div class="preview-period">
-            {{ ucfirst($plano->periodo) }}
-        </div>
+            <div class="preview-period">
+                {{ ucfirst($plano->periodo) }}
+            </div>
 
     </div>
 
@@ -247,30 +247,43 @@
 
         <div class="row g-4">
 
-            <div class="col-md-6">
+           <div class="col-md-6">
 
-                <label for="nome">
-                    Nome do plano
-                </label>
+    <label for="tipo">
+        Tipo do plano
+    </label>
 
-                <input
-                    type="text"
-                    id="nome"
-                    name="nome"
-                    value="{{ old('nome', $plano->nome) }}"
-                    class="form-control @error('nome') is-invalid @enderror"
-                    placeholder="Ex: Plano Premium"
-                    required
-                >
+    <select
+        id="tipo"
+        name="tipo"
+        class="form-control @error('tipo') is-invalid @enderror"
+        required
+    >
 
-                @error('nome')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+        <option value="mensal"
+            {{ old('tipo', $plano->tipo) == 'mensal' ? 'selected' : '' }}>
+            Mensal
+        </option>
 
-            </div>
+        <option value="trimestral"
+            {{ old('tipo', $plano->tipo) == 'trimestral' ? 'selected' : '' }}>
+            Trimestral
+        </option>
 
+        <option value="anual"
+            {{ old('tipo', $plano->tipo) == 'anual' ? 'selected' : '' }}>
+            Anual
+        </option>
+
+    </select>
+
+    @error('tipo')
+        <div class="invalid-feedback">
+            {{ $message }}
+        </div>
+    @enderror
+
+</div>
             <div class="col-md-6">
 
                 <label for="valor">

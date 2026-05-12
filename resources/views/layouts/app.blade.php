@@ -214,11 +214,6 @@
             box-shadow: 0 18px 50px rgba(0,0,0,.28);
         }
 
-        .alert {
-            border: 0;
-            animation: fadeDown .4s ease both;
-        }
-
         .table {
             vertical-align: middle;
         }
@@ -227,6 +222,74 @@
         .form-select {
             border-radius: 12px;
             padding: 11px 13px;
+        }
+
+        .fit-toast{
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            min-width: 320px;
+            padding: 16px 20px;
+            border-radius: 18px;
+             pointer-events: none;
+            color: white;
+            font-weight: 700;
+            z-index: 9999;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 18px 40px rgba(0,0,0,.35);
+            animation:
+                toastIn .45s ease,
+                toastOut .45s ease 4.5s forwards;
+        }
+
+        .success-toast{
+            background: linear-gradient(
+                135deg,
+                rgba(34,197,94,.95),
+                rgba(22,163,74,.95)
+               
+
+            );
+             border-left: 5px solid #bbf7d0;
+        }
+
+        .error-toast{
+                border-left: 5px solid #fecaca;
+
+            background: linear-gradient(
+                135deg,
+                rgba(239,68,68,.95),
+                rgba(185,28,28,.95)
+            );
+        }
+
+        .fit-toast i{
+            font-size: 20px;
+        }
+
+        @keyframes toastIn{
+            from{
+                opacity:0;
+                transform:
+                    translateX(50px)
+                    scale(.9);
+            }
+
+            to{
+                opacity:1;
+                transform:
+                    translateX(0)
+                    scale(1);
+            }
+        }
+
+        @keyframes toastOut{
+            to{
+                opacity:0;
+                transform:
+                    translateX(60px)
+                    scale(.9);
+            }
         }
 
         @keyframes slideSidebar {
@@ -377,6 +440,25 @@
 @endauth
 
 <main class="content">
+
+    @if(session('success'))
+        <div class="fit-toast success-toast">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>{{ session('success') }}</span>
+            </div>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="fit-toast error-toast">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-x-circle-fill"></i>
+                <span>{{ session('error') }}</span>
+            </div>
+        </div>
+    @endif
+
     @auth
         <div class="topbar d-flex justify-content-between align-items-center">
             <div>
@@ -390,22 +472,11 @@
         </div>
     @endauth
 
-    @if(session('success'))
-        <div class="alert alert-success rounded-4">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="alert alert-danger rounded-4">
-            {{ session('error') }}
-        </div>
-    @endif
-
     @yield('content')
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-</html>
+</html> 

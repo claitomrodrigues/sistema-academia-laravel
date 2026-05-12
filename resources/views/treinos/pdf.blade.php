@@ -172,6 +172,7 @@
 <body>
 
     <div class="header">
+
         <div class="brand">
             Fit<span>Cloud</span>
         </div>
@@ -181,6 +182,7 @@
         </div>
 
         <div class="title-box">
+
             <div class="title">
                 Ficha de Treino
             </div>
@@ -188,39 +190,121 @@
             <div class="subtitle">
                 Plano de exercícios personalizado para acompanhamento do aluno
             </div>
+
         </div>
+
     </div>
 
     <div class="info-grid">
+
         <div class="info-card">
-            <div class="label">Aluno</div>
+
+            <div class="label">
+                Aluno
+            </div>
+
             <div class="value">
                 {{ $treino->aluno->user->name ?? $treino->aluno->nome }}
             </div>
+
         </div>
 
         <div class="info-card">
-            <div class="label">Tipo do treino</div>
-            <div class="value">
-                Treino {{ $treino->tipo }}
+
+            <div class="label">
+                Tipo do treino
             </div>
+
+            <div class="value">
+                {{ $treino->tipo }}
+            </div>
+
         </div>
 
         <div class="info-card">
-            <div class="label">Status</div>
+
+            <div class="label">
+                Plano
+            </div>
+
             <div class="value">
+                {{ $treino->plano->nome ?? '-' }}
+            </div>
+
+        </div>
+
+        <div class="info-card">
+
+            <div class="label">
+                Período do plano
+            </div>
+
+            <div class="value">
+                {{ ucfirst($treino->plano->tipo ?? '-') }}
+            </div>
+
+        </div>
+
+        @if($treino->dias_semana)
+
+        <div class="info-card">
+
+            <div class="label">
+                Dias por semana
+            </div>
+
+            <div class="value">
+                {{ $treino->dias_semana }}x por semana
+            </div>
+
+        </div>
+
+        @endif
+
+        @if($treino->personal)
+
+        <div class="info-card">
+
+            <div class="label">
+                Personal Trainer
+            </div>
+
+            <div class="value">
+                Com acompanhamento
+            </div>
+
+        </div>
+
+        @endif
+
+        <div class="info-card">
+
+            <div class="label">
+                Status
+            </div>
+
+            <div class="value">
+
                 <span class="status">
                     {{ $treino->status }}
                 </span>
+
             </div>
+
         </div>
 
         <div class="info-card">
-            <div class="label">Data de emissão</div>
+
+            <div class="label">
+                Data de emissão
+            </div>
+
             <div class="value">
                 {{ now()->format('d/m/Y') }}
             </div>
+
         </div>
+
     </div>
 
     <div class="section-title">
@@ -228,7 +312,9 @@
     </div>
 
     <table>
+
         <thead>
+
             <tr>
                 <th>Exercício</th>
                 <th>Grupo Muscular</th>
@@ -236,11 +322,15 @@
                 <th>Repetições</th>
                 <th>Carga</th>
             </tr>
+
         </thead>
 
         <tbody>
+
             @foreach($treino->itens as $item)
+
                 <tr>
+
                     <td class="exercise-name">
                         {{ $item->exercicio->nome ?? '-' }}
                     </td>
@@ -250,24 +340,35 @@
                     </td>
 
                     <td>
-                        {{ $item->series }}
+                        {{ $item->series ?? '-' }}
                     </td>
 
                     <td>
-                        {{ $item->reps }}
+                        {{ $item->repeticoes ?? '-' }}
                     </td>
 
                     <td>
                         {{ $item->carga ?? '-' }}
                     </td>
+
                 </tr>
+
             @endforeach
+
         </tbody>
+
     </table>
 
     <div class="notes">
-        <strong>Observação:</strong>
-        Execute os exercícios conforme orientação do instrutor. Ajustes de carga, séries ou repetições devem ser feitos de acordo com a evolução e segurança do aluno.
+
+        <strong>
+            Observação:
+        </strong>
+
+        Execute os exercícios conforme orientação do instrutor.
+        Ajustes de carga, séries ou repetições devem ser feitos
+        de acordo com a evolução e segurança do aluno.
+
     </div>
 
     <div class="footer">

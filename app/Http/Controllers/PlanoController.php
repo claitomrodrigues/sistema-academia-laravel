@@ -10,6 +10,7 @@ class PlanoController extends Controller
     public function index()
     {
         $planos = Plano::all();
+
         return view('planos.index', compact('planos'));
     }
 
@@ -22,21 +23,26 @@ class PlanoController extends Controller
     {
         $dados = $request->validate([
             'nome' => 'required|string|max:255',
-            'valor' => 'required|numeric',
+            'tipo' => 'required|in:mensal,trimestral,anual',
+            'valor' => 'required|numeric|min:0',
             'descricao' => 'nullable|string',
-            'periodo' => 'required|string|max:100',
         ]);
 
         $dados['descricao'] = $dados['descricao'] ?? 'Sem descrição';
 
+        $dados['periodo'] = $dados['tipo'];
+
         Plano::create($dados);
 
-        return redirect()->route('planos.index')->with('success', 'Plano cadastrado com sucesso!');
+        return redirect()
+            ->route('planos.index')
+            ->with('success', 'Plano cadastrado com sucesso!');
     }
 
     public function edit($id)
     {
         $plano = Plano::findOrFail($id);
+
         return view('planos.edit', compact('plano'));
     }
 
@@ -44,24 +50,31 @@ class PlanoController extends Controller
     {
         $dados = $request->validate([
             'nome' => 'required|string|max:255',
-            'valor' => 'required|numeric',
+            'tipo' => 'required|in:mensal,trimestral,anual',
+            'valor' => 'required|numeric|min:0',
             'descricao' => 'nullable|string',
-            'periodo' => 'required|string|max:100',
         ]);
 
         $dados['descricao'] = $dados['descricao'] ?? 'Sem descrição';
 
+        $dados['periodo'] = $dados['tipo'];
+
         $plano = Plano::findOrFail($id);
         $plano->update($dados);
 
-        return redirect()->route('planos.index')->with('success', 'Plano atualizado com sucesso!');
+        return redirect()
+            ->route('planos.index')
+            ->with('success', 'Plano atualizado com sucesso!');
     }
 
     public function destroy($id)
     {
         $plano = Plano::findOrFail($id);
+
         $plano->delete();
 
-        return redirect()->route('planos.index')->with('success', 'Plano excluído com sucesso!');
+        return redirect()
+            ->route('planos.index')
+            ->with('success', 'Plano excluído com sucesso!');
     }
 }
