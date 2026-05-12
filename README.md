@@ -68,7 +68,7 @@ Com ele, você elimina planilhas, reduz trabalho manual e centraliza toda a gest
 ![Alunos](public/public/prints/instrutor/lista_aluno.png)
 
 📋 Visualização de Treinos dos Alunos  
-![Treinos Instrutor](public/public/prints/instrutor/lista_treinos.png)
+![Treinos Instrutor](public/public/prints/instrutor/lista_treino.png)
 
 💰 Gestão de Planos  
 ![Planos](public/public/prints/instrutor/lista_pagamento.png)
