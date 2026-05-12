@@ -63,15 +63,15 @@ Com ele, você elimina planilhas, reduz trabalho manual e centraliza toda a gest
 
 🏋️ Criação de Treino  
 ![Criar Treino](public/public/prints/instrutor/cria_treino.png)
+![Listar Treino](public/public/prints/instrutor/lista_treino.png)
 
 👥 Gestão de Alunos  
+![Criar Alunos](public/public/prints/instrutor/cria_aluno.png)
 ![Alunos](public/public/prints/instrutor/lista_aluno.png)
 
-📋 Visualização de Treinos dos Alunos  
-![Treinos Instrutor](public/public/prints/instrutor/lista_treino.png)
-
-💰 Gestão de Planos  
-![Planos](public/public/prints/instrutor/lista_pagamento.png)
+💰 Gestão de Transações
+![Criar Pagamento](public/public/prints/instrutor/cria_pagamento.png)
+![Pagamento](public/public/prints/instrutor/lista_pagamento.png)
 
 ---
 
