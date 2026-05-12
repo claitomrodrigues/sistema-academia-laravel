@@ -52,6 +52,45 @@ Com ele, você elimina planilhas, reduz trabalho manual e centraliza toda a gest
 
 ---
 
+---
+
+## 📸 Demonstração do Sistema
+
+### 🧑‍🏫 Área do Instrutor
+
+📊 Dashboard do Instrutor  
+![Dashboard Instrutor](public/prints/instrutor/dashboard.png)
+
+🏋️ Criação de Treino  
+![Criar Treino](public/prints/instrutor/criar-treino.png)
+
+👥 Gestão de Alunos  
+![Alunos](public/prints/instrutor/alunos.png)
+
+📋 Visualização de Treinos dos Alunos  
+![Treinos Instrutor](public/prints/instrutor/treinos.png)
+
+💰 Gestão de Planos  
+![Planos](public/prints/instrutor/planos.png)
+
+---
+
+### 🧑‍🎓 Área do Aluno
+
+🏠 Dashboard do Aluno  
+![Dashboard Aluno](public/prints/aluno/dashboard.png)
+
+📋 Treino Ativo  
+![Treino Aluno](public/prints/aluno/treino.png)
+
+📄 Ficha de Treino em PDF  
+![PDF Treino](public/prints/aluno/pdf.png)
+
+📱 Visualização Mobile  
+![Mobile](public/prints/aluno/mobile.png)
+
+---
+
 ## ⚙️ Stack Tecnológica
 
 ```bash
