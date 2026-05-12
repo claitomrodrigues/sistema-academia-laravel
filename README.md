@@ -56,6 +56,9 @@ Com ele, você elimina planilhas, reduz trabalho manual e centraliza toda a gest
 
 ## 📸 Demonstração do Sistema
 
+Login
+![Tela Login](public/public/prints/login.png)
+
 ### 🧑‍🏫 Área do Instrutor
 
 📊 Dashboard do Instrutor  
@@ -86,8 +89,11 @@ Com ele, você elimina planilhas, reduz trabalho manual e centraliza toda a gest
 📄 Ficha de Treino em PDF  
 ![PDF Treino](public/prints/aluno/pdf.png)
 
-📱 Visualização Mobile  
-![Mobile](public/prints/aluno/mobile.png)
+
+💰 Minhas Faturas
+![Tela Fatura](public/prints/aluno/fatura.png)
+
+
 
 ---
 
