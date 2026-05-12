@@ -81,17 +81,16 @@ Login
 ### 🧑‍🎓 Área do Aluno
 
 🏠 Dashboard do Aluno  
-![Dashboard Aluno](public/prints/aluno/dashboard.png)
+![Dashboard Aluno](public/public/prints/aluno/dashboard.png)
 
 📋 Treino Ativo  
-![Treino Aluno](public/prints/aluno/treino.png)
+![Treino Aluno](public/public/prints/aluno/treino.png)
 
 📄 Ficha de Treino em PDF  
-![PDF Treino](public/prints/aluno/pdf.png)
-
+![PDF Treino](public/public/prints/aluno/pdf.png)
 
 💰 Minhas Faturas
-![Tela Fatura](public/prints/aluno/fatura.png)
+![Tela Fatura](public/public/prints/aluno/fatura.png)
 
 
 
