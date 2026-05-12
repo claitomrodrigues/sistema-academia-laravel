@@ -59,19 +59,19 @@ Com ele, você elimina planilhas, reduz trabalho manual e centraliza toda a gest
 ### 🧑‍🏫 Área do Instrutor
 
 📊 Dashboard do Instrutor  
-![Dashboard Instrutor](public/prints/instrutor/dashboard.png)
+![Dashboard Instrutor](public/public/prints/instrutor/dashboard.png)
 
 🏋️ Criação de Treino  
-![Criar Treino](public/prints/instrutor/criar-treino.png)
+![Criar Treino](public/public/prints/instrutor/cria_treino.png)
 
 👥 Gestão de Alunos  
-![Alunos](public/prints/instrutor/alunos.png)
+![Alunos](public/public/prints/instrutor/lista_aluno.png)
 
 📋 Visualização de Treinos dos Alunos  
-![Treinos Instrutor](public/prints/instrutor/treinos.png)
+![Treinos Instrutor](public/public/prints/instrutor/lista_treinos.png)
 
 💰 Gestão de Planos  
-![Planos](public/prints/instrutor/planos.png)
+![Planos](public/public/prints/instrutor/lista_pagamento.png)
 
 ---
 
