@@ -1,117 +1,62 @@
-# FitCloud | Gym Management System
+# 💪 FitCloud — Gym Management System
 
-[![Laravel](https://shields.io)](https://laravel.com)
-[![PHP](https://shields.io)](https://php.net)
-[![Bootstrap](https://shields.io)](https://getbootstrap.com)
-[![MySQL](https://shields.io)](https://mysql.com)
-[![License](https://shields.io)](LICENSE)
+<p align="center">
+  <img src="https://img.shields.io/badge/Laravel-10-red?style=for-the-badge&logo=laravel" />
+  <img src="https://img.shields.io/badge/PHP-8+-777BB4?style=for-the-badge&logo=php" />
+  <img src="https://img.shields.io/badge/MySQL-Database-4479A1?style=for-the-badge&logo=mysql" />
+  <img src="https://img.shields.io/badge/Bootstrap-5-7952B3?style=for-the-badge&logo=bootstrap" />
+</p>
 
-O **FitCloud** é uma plataforma robusta de gestão para academias, projetada para centralizar o controle operacional e financeiro. O sistema oferece uma interface responsiva para instrutores e alunos, otimizando o acompanhamento de treinos e a gestão de mensalidades.
-
----
-
-## 🛠 Tecnologias e Dependências
-
-### Core Stack
-*   **Backend:** PHP 8.x + Laravel Framework
-*   **Frontend:** Blade Templates, JavaScript, CSS3
-*   **UI/UX:** Bootstrap 5 & Bootstrap Icons
-*   **Database:** Suporte nativo para SQLite e MySQL
-
-### Bibliotecas Adicionais
-*   **DomPDF:** Geração de fichas de treino em PDF
-*   **Middleware:** Controle de autenticação e níveis de acesso
+<p align="center">
+  <b>🚀 Plataforma completa para gestão de academias moderna, rápida e escalável</b><br>
+  Controle alunos, treinos, planos e financeiro em um único sistema.
+</p>
 
 ---
 
-## ⚙️ Funcionalidades Principais
+## ✨ Sobre o FitCloud
 
-### Gestão Administrativa e Instrutores
-*   **Controle de Acesso:** Autenticação segura com perfis distintos (Instrutor/Aluno).
-*   **Gestão de Alunos:** Ciclo completo de cadastro, edição e associação de matrículas.
-*   **Banco de Exercícios:** Catálogo organizado por grupos musculares.
-*   **Prescrição de Treinos:** Montagem de fichas personalizadas com séries, repetições e carga.
-*   **Módulo Financeiro:** Gestão de planos e fluxos de pagamentos.
+O **FitCloud** é um sistema web profissional desenvolvido para academias que desejam digitalizar e automatizar toda sua operação.
 
-### Experiência do Aluno
-*   **Dashboard do Aluno:** Visualização de treinos ativos e evolução física.
-*   **Financeiro:** Consulta de histórico de pagamentos e status de mensalidade.
-*   **Portabilidade:** Exportação de fichas de treino em PDF otimizadas para dispositivos móveis ou impressão.
+Com ele, você elimina planilhas, reduz trabalho manual e centraliza toda a gestão em uma plataforma inteligente e intuitiva.
 
 ---
 
-## 📊 Estrutura de Planos
+## 🔥 Principais Funcionalidades
 
+### 🏋️ Gestão Completa
+- Cadastro de alunos e instrutores
+- Organização por planos (mensal, trimestral, anual)
+- Controle total de matrículas
 
-| Frequência Semanal | Valor Mensal |
-| :--- | :--- |
-| 2 dias | R$ 100,00 |
-| 3 dias | R$ 110,00 |
-| 5 dias | R$ 130,00 |
-| 7 dias | R$ 150,00 |
+### 📋 Treinos Inteligentes
+- Criação de fichas personalizadas
+- Séries, repetições e carga por exercício
+- Organização por grupo muscular
+- Acompanhamento de evolução
 
----
+### 💰 Financeiro Integrado
+- Gestão de planos e valores
+- Controle de mensalidades
+- Base pronta para PIX / gateways de pagamento
 
-## 🚀 Instalação e Configuração
+### 👤 Área do Aluno
+- Visualização de treino ativo
+- Interface simples e responsiva
+- Download de ficha em PDF
 
-### Requisitos Prévios
-*   PHP >= 8.1
-*   Composer
-*   Servidor de Banco de Dados (MySQL ou SQLite)
-
-### Passo a Passo
-
-1. **Clonagem do repositório:**
-   ```bash
-   git clone https://github.com/claitomrodrigues/sistema-academia-laravel.git
-   cd sistema-academia-laravel
-   ```
-
-2. **Gerenciamento de dependências:**
-   ```bash
-   composer install
-   ```
-
-3. **Configuração de ambiente:**
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
-
-4. **Banco de Dados:**
-   No arquivo `.env`, configure suas credenciais. Para SQLite:
-   ```env
-   DB_CONNECTION=sqlite
-   # Crie o arquivo database/database.sqlite manualmente
-   ```
-
-5. **Migração e Inicialização:**
-   ```bash
-   php artisan migrate
-   php artisan serve
-   ```
-   Acesse: `http://localhost:8000`
+### 📄 Exportação PDF
+- Fichas de treino profissionais
+- Impressão ou uso mobile
+- Layout otimizado para academia
 
 ---
 
-## 🏗 Roadmap de Desenvolvimento
+## ⚙️ Stack Tecnológica
 
-*   [ ] Integração com Gateway de Pagamento (Asaas/PIX)
-*   [ ] Dashboard analítico com gráficos de faturamento
-*   [ ] Sistema de notificações push via WhatsApp/E-mail
-*   [ ] IA para sugestão baseada em biotipo
-*   [ ] Módulo de avaliação física (Antropometria)
-
----
-
-## 👤 Desenvolvedor
-
-**Claitom Rodrigues**
-*Full Stack Developer em formação*
-[LinkedIn](https://linkedin.com) | [Portfolio](https://seu-portfolio.com)
-
----
-
-## 📄 Licença
-
-Este projeto é distribuído sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+```bash
+Backend: Laravel 10 + PHP 8+
+Frontend: Blade + JavaScript + CSS3
+UI: Bootstrap 5
+Banco: MySQL / SQLite
+PDF: DomPDF
