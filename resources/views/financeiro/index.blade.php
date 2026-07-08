@@ -88,8 +88,8 @@
         width: 46px;
         height: 46px;
         border-radius: 15px;
-        background: rgba(239,68,68,.14);
-        color: #ef4444;
+        background: rgba(22,163,74,.14);
+        color: #16A34A;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -167,12 +167,12 @@
     }
 
     .btn-pix {
-        background: rgba(239,68,68,.15);
-        color: #ef4444;
+        background: rgba(22,163,74,.15);
+        color: #16A34A;
     }
 
     .btn-pix:hover {
-        background: #ef4444;
+        background: #16A34A;
         color: #fff;
     }
 
@@ -226,17 +226,18 @@
 
 <div class="fit-header">
     <div>
-        <h1 class="fit-title">Controle Financeiro</h1>
+        <h1 class="fit-title">Financeiro</h1>
         <p class="fit-subtitle">
-            Gerencie mensalidades, vencimentos, pagamentos e transações dos alunos.
+            Acompanhe cobranças, vencimentos, pagamentos e transações dos alunos.
         </p>
-          @if(auth()->user()->role === 'instrutor')
-    <a href="{{ route('cobrancas.create') }}" class="btn-fit-primary">
-        <i class="bi bi-plus-circle-fill"></i>
-        Nova Cobrança
-    </a>
-@endif
     </div>
+
+    @if(auth()->user()->role === 'instrutor')
+        <a href="{{ route('cobrancas.create') }}" class="btn-fit-primary">
+            <i class="bi bi-plus-circle"></i>
+            Nova cobrança
+        </a>
+    @endif
 </div>
 
 <div class="fit-card">

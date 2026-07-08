@@ -19,14 +19,14 @@
         width: 90px;
         height: 90px;
         border-radius: 28px;
-        background: rgba(239,68,68,.15);
-        color: #ef4444;
+        background: rgba(22,163,74,.15);
+        color: #16A34A;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 42px;
         margin: 0 auto 24px;
-        box-shadow: 0 18px 45px rgba(239,68,68,.20);
+        box-shadow: 0 18px 45px rgba(22,163,74,.20);
     }
 
     .empty-title {
@@ -49,9 +49,9 @@
         margin-top: 24px;
         padding: 10px 18px;
         border-radius: 999px;
-        background: rgba(239,68,68,.12);
-        color: #fca5a5;
-        border: 1px solid rgba(248,113,113,.25);
+        background: rgba(22,163,74,.12);
+        color: #86EFAC;
+        border: 1px solid rgba(34,197,94,.25);
         font-weight: 800;
     }
 

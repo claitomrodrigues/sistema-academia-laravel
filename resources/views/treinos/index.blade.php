@@ -36,7 +36,7 @@
     }
 
     .btn-fit-primary{
-        background: linear-gradient(135deg, #ef4444, #b91c1c);
+        background: linear-gradient(135deg, #16A34A, #15803D);
         border: none;
         color: #fff;
         border-radius: 14px;
@@ -52,7 +52,7 @@
     .btn-fit-primary:hover{
         transform: translateY(-1px);
         color: #fff;
-        box-shadow: 0 14px 30px rgba(239,68,68,.30);
+        box-shadow: 0 14px 30px rgba(22,163,74,.30);
     }
 
     .fit-table{
@@ -109,8 +109,8 @@
         width: 45px;
         height: 45px;
         border-radius: 14px;
-        background: rgba(239,68,68,.12);
-        color: #ef4444;
+        background: rgba(22,163,74,.12);
+        color: #16A34A;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -141,8 +141,8 @@
     }
 
     .badge-inactive{
-        background: rgba(239,68,68,.15);
-        color: #ef4444;
+        background: rgba(22,163,74,.15);
+        color: #16A34A;
     }
 
     .action-group{
@@ -175,12 +175,12 @@
     }
 
     .btn-pdf{
-        background: rgba(239,68,68,.15);
-        color: #ef4444;
+        background: rgba(22,163,74,.15);
+        color: #16A34A;
     }
 
     .btn-pdf:hover{
-        background: #ef4444;
+        background: #16A34A;
         color: #fff;
     }
 

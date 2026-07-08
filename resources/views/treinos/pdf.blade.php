@@ -31,7 +31,7 @@
         }
 
         .brand span {
-            color: #ef4444;
+            color: #16A34A;
         }
 
         .slogan {
@@ -64,7 +64,7 @@
 
         .info-card {
             background: #f3f4f6;
-            border-left: 5px solid #ef4444;
+            border-left: 5px solid #16A34A;
             padding: 12px;
             margin-bottom: 10px;
             border-radius: 8px;
@@ -100,7 +100,7 @@
             font-weight: bold;
             color: #111827;
             margin-bottom: 12px;
-            border-bottom: 2px solid #ef4444;
+            border-bottom: 2px solid #16A34A;
             padding-bottom: 6px;
         }
 
@@ -141,7 +141,7 @@
         }
 
         .group {
-            color: #ef4444;
+            color: #16A34A;
             font-weight: bold;
         }
 

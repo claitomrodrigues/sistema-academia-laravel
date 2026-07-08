@@ -29,4 +29,9 @@ class Aluno extends Model
     {
         return $this->hasMany(Treino::class);
     }
+
+    public function presencas()
+    {
+        return $this->hasMany(Presenca::class);
+    }
 }

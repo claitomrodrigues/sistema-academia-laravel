@@ -43,7 +43,7 @@
         position: absolute;
         inset: 0;
         background:
-            radial-gradient(circle at top right, rgba(239,68,68,.15), transparent 25%),
+            radial-gradient(circle at top right, rgba(22,163,74,.15), transparent 25%),
             radial-gradient(circle at bottom left, rgba(59,130,246,.08), transparent 30%);
         pointer-events: none;
     }
@@ -61,7 +61,7 @@
     }
 
     .section-title i {
-        color: #ef4444;
+        color: #16A34A;
     }
 
     label {
@@ -84,8 +84,8 @@
     .form-select:focus {
         background: #020617;
         color: #fff;
-        border-color: #ef4444;
-        box-shadow: 0 0 0 .25rem rgba(239,68,68,.18);
+        border-color: #16A34A;
+        box-shadow: 0 0 0 .25rem rgba(22,163,74,.18);
         transform: translateY(-2px);
     }
 
@@ -102,10 +102,10 @@
         background:
             linear-gradient(
                 135deg,
-                rgba(239,68,68,.18),
+                rgba(22,163,74,.18),
                 rgba(15,23,42,.95)
             );
-        border: 1px solid rgba(239,68,68,.18);
+        border: 1px solid rgba(22,163,74,.18);
         border-radius: 24px;
         padding: 24px;
         margin-top: 26px;
@@ -118,7 +118,7 @@
         position: absolute;
         width: 280px;
         height: 280px;
-        background: rgba(239,68,68,.08);
+        background: rgba(22,163,74,.08);
         border-radius: 50%;
         top: -140px;
         right: -140px;
@@ -126,7 +126,7 @@
     }
 
     .price-text {
-        color: #fca5a5;
+        color: #86EFAC;
         font-size: 14px;
         font-weight: 800;
         margin-bottom: 6px;
@@ -140,7 +140,7 @@
         font-weight: 900;
         position: relative;
         z-index: 2;
-        text-shadow: 0 0 20px rgba(239,68,68,.35);
+        text-shadow: 0 0 20px rgba(22,163,74,.35);
     }
 
     .price-extra {
@@ -189,19 +189,19 @@
 
     .exercise-check-card:hover {
         transform: translateY(-4px);
-        border-color: rgba(239,68,68,.4);
-        box-shadow: 0 18px 40px rgba(239,68,68,.15);
+        border-color: rgba(22,163,74,.4);
+        box-shadow: 0 18px 40px rgba(22,163,74,.15);
     }
 
     .exercise-check-card:has(.exercise-checkbox:checked) {
-        border-color: #ef4444;
+        border-color: #16A34A;
         background:
             linear-gradient(
                 135deg,
-                rgba(239,68,68,.16),
+                rgba(22,163,74,.16),
                 #020617
             );
-        box-shadow: 0 20px 45px rgba(239,68,68,.22);
+        box-shadow: 0 20px 45px rgba(22,163,74,.22);
     }
 
     .exercise-check-header {
@@ -224,9 +224,9 @@
     }
 
     .exercise-muscle {
-        background: rgba(239,68,68,.14);
-        color: #fca5a5;
-        border: 1px solid rgba(239,68,68,.18);
+        background: rgba(22,163,74,.14);
+        color: #86EFAC;
+        border: 1px solid rgba(22,163,74,.18);
         padding: 5px 12px;
         border-radius: 999px;
         font-size: 12px;
@@ -243,13 +243,13 @@
     }
 
     .btn-fit-primary {
-        background: linear-gradient(135deg, #ef4444, #991b1b);
+        background: linear-gradient(135deg, #16A34A, #14532D);
         border: none;
         color: #fff;
         border-radius: 16px;
         padding: 13px 24px;
         font-weight: 800;
-        box-shadow: 0 14px 35px rgba(239,68,68,.28);
+        box-shadow: 0 14px 35px rgba(22,163,74,.28);
         transition: .25s;
     }
 

@@ -36,7 +36,7 @@
     }
 
     .btn-fit-primary{
-        background: linear-gradient(135deg, #ef4444, #b91c1c);
+        background: linear-gradient(135deg, #16A34A, #15803D);
         border: none;
         color: #fff;
         border-radius: 14px;
@@ -52,7 +52,7 @@
     .btn-fit-primary:hover{
         transform: translateY(-1px);
         color: #fff;
-        box-shadow: 0 14px 30px rgba(239,68,68,.30);
+        box-shadow: 0 14px 30px rgba(22,163,74,.30);
     }
 
     .fit-table{
@@ -109,8 +109,8 @@
         width: 48px;
         height: 48px;
         border-radius: 15px;
-        background: rgba(239,68,68,.14);
-        color: #ef4444;
+        background: rgba(22,163,74,.14);
+        color: #16A34A;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -132,9 +132,9 @@
         align-items: center;
         gap: 8px;
 
-        background: rgba(239,68,68,.13);
+        background: rgba(22,163,74,.13);
 
-        color: #ef4444;
+        color: #16A34A;
 
         padding: 9px 14px;
 
@@ -174,12 +174,12 @@
     }
 
     .btn-delete{
-        background: rgba(239,68,68,.15);
-        color: #ef4444;
+        background: rgba(22,163,74,.15);
+        color: #16A34A;
     }
 
     .btn-delete:hover{
-        background: #ef4444;
+        background: #16A34A;
         color: #fff;
     }
 

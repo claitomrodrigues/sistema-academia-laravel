@@ -40,7 +40,7 @@
     }
 
     .section-title i {
-        color: #ef4444;
+        color: #16A34A;
     }
 
     label {
@@ -60,8 +60,8 @@
     .form-control:focus {
         background: #020617;
         color: #fff;
-        border-color: #ef4444;
-        box-shadow: 0 0 0 .25rem rgba(239,68,68,.15);
+        border-color: #16A34A;
+        box-shadow: 0 0 0 .25rem rgba(22,163,74,.15);
     }
 
     .form-control::placeholder {
@@ -76,7 +76,7 @@
     .input-group-text {
         background: #1f2937;
         border: 1px solid #1f2937;
-        color: #ef4444;
+        color: #16A34A;
         border-radius: 14px 0 0 14px;
         font-weight: 800;
     }
@@ -86,12 +86,12 @@
     }
 
     .invalid-feedback {
-        color: #fca5a5;
+        color: #86EFAC;
         font-weight: 600;
     }
 
     .is-invalid {
-        border-color: #ef4444 !important;
+        border-color: #16A34A !important;
     }
 
     .alert {
@@ -113,7 +113,7 @@
     }
 
     .btn-fit-primary {
-        background: linear-gradient(135deg, #ef4444, #b91c1c);
+        background: linear-gradient(135deg, #16A34A, #15803D);
         border: none;
         color: #fff;
         border-radius: 14px;
@@ -128,7 +128,7 @@
     .btn-fit-primary:hover {
         transform: translateY(-1px);
         color: #fff;
-        box-shadow: 0 14px 30px rgba(239,68,68,.30);
+        box-shadow: 0 14px 30px rgba(22,163,74,.30);
     }
 
     .btn-fit-secondary {

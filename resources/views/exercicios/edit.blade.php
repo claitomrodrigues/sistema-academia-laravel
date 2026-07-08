@@ -30,8 +30,8 @@
     }
 
     .exercise-preview {
-        background: linear-gradient(135deg, rgba(239,68,68,.12), rgba(239,68,68,.04));
-        border: 1px solid rgba(239,68,68,.12);
+        background: linear-gradient(135deg, rgba(22,163,74,.12), rgba(22,163,74,.04));
+        border: 1px solid rgba(22,163,74,.12);
         border-radius: 22px;
         padding: 24px;
         margin-bottom: 28px;
@@ -56,8 +56,8 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        background: rgba(239,68,68,.15);
-        color: #ef4444;
+        background: rgba(22,163,74,.15);
+        color: #16A34A;
         padding: 9px 14px;
         border-radius: 999px;
         font-size: 13px;
@@ -75,7 +75,7 @@
     }
 
     .section-title i {
-        color: #ef4444;
+        color: #16A34A;
     }
 
     label {
@@ -95,8 +95,8 @@
     .form-control:focus {
         background: #020617;
         color: #fff;
-        border-color: #ef4444;
-        box-shadow: 0 0 0 .25rem rgba(239,68,68,.15);
+        border-color: #16A34A;
+        box-shadow: 0 0 0 .25rem rgba(22,163,74,.15);
     }
 
     .form-control::placeholder {
@@ -104,12 +104,12 @@
     }
 
     .invalid-feedback {
-        color: #fca5a5;
+        color: #86EFAC;
         font-weight: 600;
     }
 
     .is-invalid {
-        border-color: #ef4444 !important;
+        border-color: #16A34A !important;
     }
 
     .alert {
@@ -131,7 +131,7 @@
     }
 
     .btn-fit-primary {
-        background: linear-gradient(135deg, #ef4444, #b91c1c);
+        background: linear-gradient(135deg, #16A34A, #15803D);
         border: none;
         color: #fff;
         border-radius: 14px;
@@ -146,7 +146,7 @@
     .btn-fit-primary:hover {
         transform: translateY(-1px);
         color: #fff;
-        box-shadow: 0 14px 30px rgba(239,68,68,.30);
+        box-shadow: 0 14px 30px rgba(22,163,74,.30);
     }
 
     .btn-fit-secondary {
