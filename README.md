@@ -80,9 +80,6 @@ Login
 
 ### 🧑‍🎓 Área do Aluno
 
-🏠 Dashboard do Aluno  
-![Dashboard Aluno](public/public/prints/aluno/dashboard.png)
-
 📋 Treino Ativo  
 ![Treino Aluno](public/public/prints/aluno/treino.png)
 
