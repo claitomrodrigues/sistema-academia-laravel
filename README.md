@@ -57,7 +57,7 @@ Com ele, você elimina planilhas, reduz trabalho manual e centraliza toda a gest
 ## 📸 Demonstração do Sistema
 
 Login
-![Tela Login](public/public/prints/login.png)
+![Tela Login](public/public/prints/logins.png)
 
 ### 🧑‍🏫 Área do Instrutor
 
