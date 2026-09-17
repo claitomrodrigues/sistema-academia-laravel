@@ -156,9 +156,6 @@ Login
  Ficha de Treino em PDF  
 ![PDF Treino](public/public/prints/aluno/pdf.png)
 
- Minhas Faturas
-![Tela Fatura](public/public/prints/aluno/fatura.png)
-
 ## Instalação
 
 ```bash
