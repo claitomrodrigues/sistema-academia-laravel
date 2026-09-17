@@ -41,13 +41,6 @@ A aplicação foi submetida a um processo de **reengenharia de software**, incor
 - Séries, repetições e carga
 - Organização por grupos musculares
 
-### Controle Financeiro
-
-- Cadastro de cobranças
-- Registro de pagamentos
-- Histórico financeiro
-- Controle de mensalidades
-
 ### Controle de Presenças
 
 - Registro diário de presença
@@ -152,10 +145,6 @@ Login
  Gestão de Alunos  
 ![Criar Alunos](public/public/prints/instrutor/cria_aluno.png)
 ![Alunos](public/public/prints/instrutor/lista_aluno.png)
-
- Gestão de Transações
-![Criar Pagamento](public/public/prints/instrutor/cria_pagamento.png)
-![Pagamento](public/public/prints/instrutor/lista_pagamento.png)
 
 ---
 
