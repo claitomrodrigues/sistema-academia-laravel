@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Aluno;
 use App\Models\Matricula;
 use App\Models\Plano;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,7 +14,7 @@ class AlunoController extends Controller
 {
     public function index()
     {
-        $alunos = Aluno::with(['user', 'matricula.plano'])->get();
+        $alunos = Aluno::with(['user', 'matricula.plano', 'matricula.pagamentos'])->get();
 
         return view('alunos.index', compact('alunos'));
     }
@@ -26,40 +26,40 @@ class AlunoController extends Controller
         return view('alunos.create', compact('planos'));
     }
 
-    public function store(Request $request) 
+    public function store(Request $request)
     {
         $request->validate([
-            'nome'       => 'required|string|max:255',
-            'email'      => 'required|email|unique:users,email',
-            'cpf'        => 'required|string|unique:alunos,cpf',
+            'nome' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'cpf' => 'required|string|unique:alunos,cpf',
             'nascimento' => 'required|date',
-            'objetivo'   => 'nullable|string|max:255',
-            'plano_id'   => 'required|exists:planos,id',
+            'objetivo' => 'nullable|string|max:255',
+            'plano_id' => 'required|exists:planos,id',
         ]);
 
         DB::transaction(function () use ($request) {
             $cpf = preg_replace('/[^0-9]/', '', $request->cpf);
 
             $user = User::create([
-                'name'     => $request->nome,
-                'email'    => $request->email,
+                'name' => $request->nome,
+                'email' => $request->email,
                 'password' => Hash::make($cpf),
-                'role'     => 'aluno'
+                'role' => User::ROLE_MEMBER,
             ]);
 
             $aluno = Aluno::create([
-                'user_id'    => $user->id,
-                'nome'       => $request->nome,
-                'cpf'        => $cpf,
+                'user_id' => $user->id,
+                'nome' => $request->nome,
+                'cpf' => $cpf,
                 'nascimento' => $request->nascimento,
-                'objetivo'   => $request->objetivo,
+                'objetivo' => $request->objetivo,
             ]);
 
             Matricula::create([
-                'aluno_id'    => $aluno->id,
-                'plano_id'    => $request->plano_id,
+                'aluno_id' => $aluno->id,
+                'plano_id' => $request->plano_id,
                 'data_inicio' => now(),
-                'status'      => 'ativa'
+                'status' => 'ativa',
             ]);
         });
 
@@ -78,20 +78,20 @@ class AlunoController extends Controller
         $aluno = Aluno::findOrFail($id);
 
         $request->validate([
-            'nome'       => 'required|string|max:255',
-            'cpf'        => 'required|string|unique:alunos,cpf,' . $aluno->id,
+            'nome' => 'required|string|max:255',
+            'cpf' => 'required|string|unique:alunos,cpf,'.$aluno->id,
             'nascimento' => 'required|date',
-            'objetivo'   => 'nullable|string|max:255',
+            'objetivo' => 'nullable|string|max:255',
         ]);
 
         DB::transaction(function () use ($request, $aluno) {
             $cpf = preg_replace('/[^0-9]/', '', $request->cpf);
 
             $aluno->update([
-                'nome'       => $request->nome,
-                'cpf'        => $cpf,
+                'nome' => $request->nome,
+                'cpf' => $cpf,
                 'nascimento' => $request->nascimento,
-                'objetivo'   => $request->objetivo,
+                'objetivo' => $request->objetivo,
             ]);
 
             if ($aluno->user) {

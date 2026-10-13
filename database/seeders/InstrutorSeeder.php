@@ -15,7 +15,7 @@ class InstrutorSeeder extends Seeder
             [
                 'name' => 'InstrutorAdmin',
                 'password' => Hash::make('12345678'),
-                'role' => 'instrutor',
+                'role' => User::ROLE_STAFF,
             ]
         );
     }

@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    @vite('resources/js/app.js')
     <style>
         :root{
             --primary:#16A34A;
@@ -55,6 +56,9 @@
                 </div>
                 <button type="submit" class="btn btn-login w-100" id="loginButton">Entrar</button>
             </form>
+            <p class="login-footer mb-0">Ainda não tem academia cadastrada?
+                <a href="{{ route('register') }}">Cadastre sua academia</a>
+            </p>
             <div class="login-footer">Ambiente seguro de gerenciamento</div>
         </div>
     </main>

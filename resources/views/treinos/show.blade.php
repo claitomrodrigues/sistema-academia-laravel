@@ -298,7 +298,7 @@
 </div>
 
 <div class="action-buttons">
-    @if(auth()->user()->role === 'instrutor')
+    @if(auth()->user()->hasRole(\App\Models\User::ROLE_ADMIN_TENANT, \App\Models\User::ROLE_STAFF))
         <a href="{{ route('treinos.index') }}" class="btn-fit-secondary">
             <i class="bi bi-arrow-left"></i>
             Voltar

@@ -10,6 +10,10 @@ export default {
         './resources/js/**/*.jsx',
     ],
 
+    corePlugins: {
+        preflight: false,
+    },
+
     theme: {
         extend: {
             fontFamily: {

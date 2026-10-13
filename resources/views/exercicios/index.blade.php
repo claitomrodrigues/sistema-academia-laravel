@@ -218,7 +218,7 @@
 
     </div>
 
-    @if(auth()->user()->role === 'instrutor')
+    @if(auth()->user()->hasRole(\App\Models\User::ROLE_ADMIN_TENANT, \App\Models\User::ROLE_STAFF))
 
         <a href="{{ route('exercicios.create') }}" class="btn-fit-primary">
 
@@ -292,7 +292,7 @@
 
                     <td>
 
-                        @if(auth()->user()->role === 'instrutor')
+                        @if(auth()->user()->hasRole(\App\Models\User::ROLE_ADMIN_TENANT, \App\Models\User::ROLE_STAFF))
 
                             <div class="action-group">
 

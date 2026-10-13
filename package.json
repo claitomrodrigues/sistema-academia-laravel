@@ -23,6 +23,7 @@
         "vite": "^7.3.3"
     },
     "dependencies": {
+        "alpinejs": "^3.17.4",
         "bootstrap-icons": "^1.13.1"
     }
 }

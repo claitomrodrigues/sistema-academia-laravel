@@ -12,6 +12,7 @@ use App\Http\Controllers\TreinoController;
 use App\Http\Controllers\FinanceiroController;
 use App\Http\Controllers\CobrancaController;
 use App\Http\Controllers\AsaasWebhookController;
+use App\Http\Controllers\HomeController;
 
 //login
 
@@ -24,6 +25,14 @@ Route::get('/login', [AuthController::class, 'showLogin'])
 
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [AuthController::class, 'showRegister'])
+        ->name('register');
+
+    Route::post('/register', [AuthController::class, 'register'])
+        ->name('register.store');
+});
+
 Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout');
 
@@ -31,15 +40,25 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/home', function () {
-        return view('home');
-    })->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    Route::get('/superadmin/dashboard', [HomeController::class, 'superAdmin'])
+        ->middleware('role:SuperAdmin')
+        ->name('superadmin.dashboard');
+
+    Route::get('/admin/dashboard', [HomeController::class, 'admin'])
+        ->middleware('role:AdminTenant,Staff')
+        ->name('admin.dashboard');
+
+    Route::get('/member/dashboard', [HomeController::class, 'member'])
+        ->middleware('role:Member')
+        ->name('member.dashboard');
 
 });
 
 //instrutor
 
-Route::middleware(['auth', 'role:instrutor'])->group(function () {
+Route::middleware(['auth', 'role:AdminTenant,Staff'])->group(function () {
 
     Route::resource('alunos', AlunoController::class);
 
@@ -71,11 +90,12 @@ Route::middleware(['auth', 'role:instrutor'])->group(function () {
 
        
 
+    Route::resource('presencas', PresencaController::class);
 });
 
 //aluno
 
-Route::middleware(['auth', 'role:aluno'])->group(function () {
+Route::middleware(['auth', 'role:Member'])->group(function () {
 
     Route::get('/meu-treino/{id}', [TreinoController::class, 'show'])
         ->name('meu.treino');
@@ -87,7 +107,7 @@ Route::middleware(['auth', 'role:aluno'])->group(function () {
 
 //pdf treino
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'role:SuperAdmin,AdminTenant,Staff,Member'])->group(function () {
 
     Route::get('/treinos/{id}/pdf', [TreinoController::class, 'pdf'])
         ->name('treinos.pdf');
@@ -97,5 +117,3 @@ Route::middleware('auth')->group(function () {
 //Webhook Asaas
 
 Route::post('/asaas/webhook', [AsaasWebhookController::class, 'handle']);
-
-Route::resource('presencas', PresencaController::class);

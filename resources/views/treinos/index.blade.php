@@ -235,7 +235,7 @@
         </p>
     </div>
 
-    @if(auth()->user()->role === 'instrutor')
+    @if(auth()->user()->hasRole(\App\Models\User::ROLE_ADMIN_TENANT, \App\Models\User::ROLE_STAFF))
         <a href="{{ route('treinos.create') }}" class="btn-fit-primary">
             <i class="bi bi-plus-circle-fill"></i>
             Novo Treino
@@ -327,7 +327,7 @@
                                 PDF
                             </a>
 
-                            @if(auth()->user()->role === 'instrutor')
+                            @if(auth()->user()->hasRole(\App\Models\User::ROLE_ADMIN_TENANT, \App\Models\User::ROLE_STAFF))
 
                                 <form action="{{ route('treinos.destroy', $treino->id) }}"
                                       method="POST"

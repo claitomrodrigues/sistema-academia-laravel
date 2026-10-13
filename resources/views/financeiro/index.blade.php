@@ -232,7 +232,7 @@
         </p>
     </div>
 
-    @if(auth()->user()->role === 'instrutor')
+    @if(auth()->user()->hasRole(\App\Models\User::ROLE_ADMIN_TENANT, \App\Models\User::ROLE_STAFF))
         <a href="{{ route('cobrancas.create') }}" class="btn-fit-primary">
             <i class="bi bi-plus-circle"></i>
             Nova cobrança
@@ -292,7 +292,7 @@
                     </td>
 
                     <td>
-                        @if(auth()->user()->role === 'instrutor')
+                        @if(auth()->user()->hasRole(\App\Models\User::ROLE_ADMIN_TENANT, \App\Models\User::ROLE_STAFF))
                             <div class="action-group">
                                 @if($pagamento->status != 'pago')
                                     <form action="{{ route('financeiro.pagar', $pagamento->id) }}" method="POST" class="d-inline">

@@ -3,44 +3,65 @@
 @section('title', 'Dashboard')
 
 @section('content')
-
-@php
-    $totalAlunos = class_exists('App\\Models\\Aluno') ? \App\Models\Aluno::count() : 0;
-    $totalPlanos = class_exists('App\\Models\\Plano') ? \App\Models\Plano::count() : 0;
-    $totalTreinos = class_exists('App\\Models\\Treino') ? \App\Models\Treino::count() : 0;
-    $presencasHoje = class_exists('App\\Models\\Presenca') ? \App\Models\Presenca::whereDate('data_presenca', now()->toDateString())->count() : 0;
-@endphp
-
-<style>
-    .dashboard-page{animation:fadeUp .7s ease both}.hero-panel{background:linear-gradient(135deg,rgba(15,23,42,.98),rgba(3,7,18,.98));border:1px solid rgba(255,255,255,.08);border-radius:30px;padding:42px;position:relative;overflow:hidden;box-shadow:0 28px 70px rgba(0,0,0,.38);margin-bottom:28px}.hero-panel::before{content:'';position:absolute;width:360px;height:360px;right:-90px;top:-140px;border-radius:50%;background:rgba(34,197,94,.22);filter:blur(70px)}.hero-panel::after{content:'';position:absolute;width:280px;height:280px;left:25%;bottom:-170px;border-radius:50%;background:rgba(59,130,246,.16);filter:blur(75px)}.hero-content{position:relative;z-index:2}.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(34,197,94,.14);color:#86efac;border:1px solid rgba(34,197,94,.22);padding:9px 15px;border-radius:999px;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}.hero-title{font-size:clamp(34px,4vw,54px);font-weight:900;line-height:1.05;color:#fff;margin-bottom:16px}.hero-title span{background:linear-gradient(135deg,#4ade80,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.hero-text{color:#cbd5e1;font-size:17px;line-height:1.75;max-width:760px;margin-bottom:26px}.hero-actions{display:flex;gap:13px;flex-wrap:wrap}.hero-btn{background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;border-radius:16px;padding:14px 21px;text-decoration:none;font-weight:900;display:inline-flex;align-items:center;gap:10px;transition:.25s;box-shadow:0 15px 35px rgba(34,197,94,.22)}.hero-btn.secondary{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);box-shadow:none}.hero-btn:hover{color:#fff;transform:translateY(-3px)}.stats-grid{margin-bottom:28px}.stat-card{background:linear-gradient(180deg,rgba(17,24,39,.96),rgba(3,7,18,.96));border-radius:24px;padding:24px;border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 45px rgba(0,0,0,.26);height:100%;position:relative;overflow:hidden;transition:.25s}.stat-card:hover{transform:translateY(-5px);border-color:rgba(34,197,94,.28)}.stat-icon{width:58px;height:58px;border-radius:18px;background:rgba(34,197,94,.14);color:#4ade80;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:18px}.stat-title{color:#9ca3af;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}.stat-value{color:#fff;font-size:36px;font-weight:900}.stat-desc{color:#86efac;font-size:13px;font-weight:800;margin-top:6px}.feature-card{background:rgba(17,24,39,.92);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:28px;box-shadow:0 20px 45px rgba(0,0,0,.24)}.feature-title{color:#fff;font-size:22px;font-weight:900;margin-bottom:10px}.feature-text{color:#9ca3af;line-height:1.7;margin:0}.feature-item{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.07)}.feature-item:last-child{border-bottom:none}.feature-item i{color:#4ade80;font-size:24px}.feature-item strong{display:block;color:#fff}.feature-item span{color:#94a3b8;font-size:14px}@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-</style>
-
-<div class="dashboard-page">
-    <section class="hero-panel">
-        <div class="hero-content">
-            <div class="hero-badge"><i class="bi bi-stars"></i>Atualização</div>
-            <h1 class="hero-title">Fit<span>Cloud</span></h1>
-            <p class="hero-text">Sua academia conectada ao futuro.</p>
-            <div class="hero-actions">
-                @if(auth()->user()->role === 'instrutor')
-                    <a href="{{ route('presencas.index') }}" class="hero-btn"><i class="bi bi-calendar2-check-fill"></i> Controle de presenças</a>
-                    <a href="{{ route('alunos.index') }}" class="hero-btn secondary"><i class="bi bi-people-fill"></i> Gerenciar alunos</a>
+    <div class="mx-auto max-w-7xl space-y-6">
+        <section class="overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 px-6 py-8 text-white shadow-sm sm:px-10 sm:py-10">
+            <p class="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-emerald-300">FitCloud</p>
+            <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">
+                <span class="!text-white">Olá, {{ auth()->user()->name }}</span>
+            </h1>
+            <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">
+                {{ auth()->user()->hasRole(\App\Models\User::ROLE_MEMBER) ? 'Acompanhe seus treinos e pagamentos em um só lugar.' : 'Acompanhe a operação da sua academia em um só lugar.' }}
+            </p>
+            <div class="mt-6 flex flex-wrap gap-3">
+                @if(auth()->user()->hasRole(\App\Models\User::ROLE_ADMIN_TENANT, \App\Models\User::ROLE_STAFF))
+                    <x-button href="{{ route('alunos.index') }}">Gerenciar alunos</x-button>
+                    <x-button href="{{ route('presencas.index') }}" variant="inverse">Controle de presenças</x-button>
                 @endif
-                @if(auth()->user()->role === 'aluno')
+                @if(auth()->user()->hasRole(\App\Models\User::ROLE_MEMBER))
                     @if(auth()->user()->aluno)
-                        <a href="{{ route('meu.treino', auth()->user()->aluno->id) }}" class="hero-btn"><i class="bi bi-clipboard-heart-fill"></i> Meu treino</a>
+                        <x-button href="{{ route('meu.treino', auth()->user()->aluno->id) }}">Meu treino</x-button>
                     @endif
-                    <a href="{{ route('minhas.faturas') }}" class="hero-btn secondary"><i class="bi bi-receipt"></i> Minhas faturas</a>
+                    <x-button href="{{ route('minhas.faturas') }}" variant="inverse">Minhas faturas</x-button>
                 @endif
             </div>
-        </div>
-    </section>
+        </section>
 
-    <div class="row stats-grid g-4">
-        <div class="col-md-3"><div class="stat-card"><div class="stat-icon"><i class="bi bi-people-fill"></i></div><div class="stat-title">Alunos</div><div class="stat-value">{{ $totalAlunos }}</div><div class="stat-desc">Cadastrados no sistema</div></div></div>
-        <div class="col-md-3"><div class="stat-card"><div class="stat-icon"><i class="bi bi-card-checklist"></i></div><div class="stat-title">Planos</div><div class="stat-value">{{ $totalPlanos }}</div><div class="stat-desc">Planos disponíveis</div></div></div>
-        <div class="col-md-3"><div class="stat-card"><div class="stat-icon"><i class="bi bi-clipboard2-pulse-fill"></i></div><div class="stat-title">Treinos</div><div class="stat-value">{{ $totalTreinos }}</div><div class="stat-desc">Fichas cadastradas</div></div></div>
-        <div class="col-md-3"><div class="stat-card"><div class="stat-icon"><i class="bi bi-calendar-check-fill"></i></div><div class="stat-title">Presenças hoje</div><div class="stat-value">{{ $presencasHoje }}</div><div class="stat-desc">Nova funcionalidade</div></div></div>
+        @if(isset($activeMembers, $revenue, $delinquentMembers))
+            <section aria-label="Indicadores da academia" class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                <x-card>
+                    <div class="flex items-center gap-4">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+                            <svg aria-hidden="true" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2m16 0v-2a4 4 0 0 0-3-3.87M14 3.13a4 4 0 0 1 0 7.75M14 11H8a4 4 0 1 1 0-8h4a4 4 0 0 1 2 7.46" /></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">Alunos ativos</p>
+                            <p class="mt-1 text-2xl font-bold text-slate-900">{{ $activeMembers }}</p>
+                        </div>
+                    </div>
+                </x-card>
+                <x-card>
+                    <div class="flex items-center gap-4">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-700">
+                            <svg aria-hidden="true" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6v12m-4-9.5h6a2.5 2.5 0 0 1 0 5H9.5a2.5 2.5 0 0 0 0 5H16" /></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">Faturamento recebido neste mês</p>
+                            <p class="mt-1 text-2xl font-bold text-slate-900">R$ {{ number_format($revenue, 2, ',', '.') }}</p>
+                        </div>
+                    </div>
+                </x-card>
+                <x-card>
+                    <div class="flex items-center gap-4">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 text-red-700">
+                            <svg aria-hidden="true" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 9v4m0 4h.01M10.3 3.86 1.82 18.5A1.8 1.8 0 0 0 3.37 21h17.26a1.8 1.8 0 0 0 1.55-2.5L13.7 3.86a1.96 1.96 0 0 0-3.4 0Z" /></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">Alunos inadimplentes</p>
+                            <p class="mt-1 text-2xl font-bold text-slate-900">{{ $delinquentMembers }}</p>
+                        </div>
+                    </div>
+                </x-card>
+            </section>
+        @endif
     </div>
-</div>
 @endsection

@@ -127,7 +127,7 @@ class TreinoController extends Controller
 
         $user = Auth::user();
 
-        if ($user->role === 'aluno') {
+        if ($user->hasRole(User::ROLE_MEMBER)) {
 
             if (!$user->aluno || $user->aluno->id != $treino->aluno_id) {
                 abort(403, 'Acesso não autorizado.');

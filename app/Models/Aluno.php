@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\BelongsToTenant;
 use Illuminate\Database\Eloquent\Model;
 
 class Aluno extends Model
 {
+    use BelongsToTenant;
+
     protected $fillable = [
         'user_id',
         'nome',
